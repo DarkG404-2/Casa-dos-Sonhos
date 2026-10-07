@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa dos Sonhos • Marcella & Gabriel</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Arquivo CSS Externo -->
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <!-- Capa Principal -->
+    <div class="cover-container">
+        <img id="cover-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80" alt="Capa Apê" class="cover-image">
+        <div class="cover-overlay"></div>
+        <button onclick="changeCoverImage()" class="change-cover-btn">
+            <i class="fa-solid fa-camera"></i> Trocar Capa
+        </button>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="container">
+
+        <!-- Header Card -->
+        <header class="header-card">
+            <div class="header-top">
+                <div class="header-title-area">
+                    <div class="header-subtitle">
+                        <span>🔑</span> NOSSO APARTAMENTO • NOTION EMBED
+                    </div>
+                    <h1 class="header-title">Apartamento dos Sonhos</h1>
+                    <div class="header-couple-names">
+                        <span class="name-marcella">🌸 Marcella</span>
+                        <span style="color: var(--text-muted);">&amp;</span>
+                        <span class="name-gabriel">⚡ Gabriel</span>
+                    </div>
+                </div>
+
+                <!-- Botões Globais de Ação -->
+                <div class="action-bar">
+                    <button onclick="openAddRoomModal()" class="btn btn-primary">
+                        <i class="fa-solid fa-plus"></i> Novo Cômodo
+                    </button>
+                    <button onclick="exportData()" class="btn btn-secondary btn-icon-only" title="Exportar Backup JSON">
+                        <i class="fa-solid fa-download"></i>
+                    </button>
+                    <button onclick="importDataPrompt()" class="btn btn-secondary btn-icon-only" title="Importar Backup JSON">
+                        <i class="fa-solid fa-upload"></i>
+                    </button>
+                    <button onclick="resetToDefaults()" class="btn btn-secondary btn-icon-only" title="Restaurar Padrões">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Métricas Principais -->
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span id="stat-total-rooms" class="stat-number">0</span>
+                    <span class="stat-label">Cômodos</span>
+                </div>
+                <div class="stat-box">
+                    <span id="stat-completed-rooms" class="stat-number" style="color: var(--ambos-color);">0</span>
+                    <span class="stat-label">Concluídos</span>
+                </div>
+                <div class="stat-box">
+                    <span id="stat-items-progress" class="stat-number" style="color: var(--gabriel-color);">0%</span>
+                    <span class="stat-label">Comprados</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Controles, Filtros e Barra de Progresso Global -->
+        <section class="controls-bar">
+            <div class="filter-group">
+                <button onclick="setFilter('todos')" id="filter-todos" class="filter-btn active">Todos</button>
+                <button onclick="setFilter('Marcella')" id="filter-marcella" class="filter-btn">Marcella</button>
+                <button onclick="setFilter('Gabriel')" id="filter-gabriel" class="filter-btn">Gabriel</button>
+                <button onclick="setFilter('Ambos')" id="filter-ambos" class="filter-btn">Ambos</button>
+            </div>
+
+            <div class="progress-pill">
+                <span>Progresso Total:</span>
+                <div class="progress-bar-bg">
+                    <div id="overall-progress-bar" class="progress-bar-fill"></div>
+                </div>
+                <strong id="overall-progress-text" style="color: var(--white);">0%</strong>
+            </div>
+        </section>
+
+        <!-- Grid Dinâmica de Cômodos -->
+        <section id="rooms-grid" class="rooms-grid">
+            <!-- Cards inseridos via JS -->
+        </section>
+
+    </main>
+
+    <!-- Modal de Edição -->
+    <div id="edit-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fa-solid fa-pen-to-square" style="color: var(--marcella-color);"></i> Editar Cômodo</h3>
+                <button onclick="closeModal('edit-modal')" class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form id="edit-room-form" onsubmit="saveRoomChanges(event)">
+                <input type="hidden" id="edit-room-id">
+                
+                <div class="form-group">
+                    <label class="form-label">Nome do Cômodo</label>
+                    <input type="text" id="edit-room-title" required class="form-input" style="width: 100%;">
+                </div>
+
+                <div class="form-row-2 form-group">
+                    <div>
+                        <label class="form-label">Responsável</label>
+                        <select id="edit-room-owner" class="form-select" style="width: 100%;">
+                            <option value="Ambos">Ambos 💜</option>
+                            <option value="Marcella">Marcella 🌸</option>
+                            <option value="Gabriel">Gabriel ⚡</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label">Status</label>
+                        <select id="edit-room-status" class="form-select" style="width: 100%;">
+                            <option value="Ideia / Inspiração 💡">Ideia / Inspiração 💡</option>
+                            <option value="Em Planejamento 📐">Em Planejamento 📐</option>
+                            <option value="Comprando Móveis 🛒">Comprando Móveis 🛒</option>
+                            <option value="Concluído ✨">Concluído ✨</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" style="color: var(--marcella-color);">Foto Inspiração Marcella (URL)</label>
+                    <input type="url" id="edit-photo-marcella" placeholder="https://..." class="form-input" style="width: 100%;">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" style="color: var(--gabriel-color);">Foto Inspiração Gabriel (URL)</label>
+                    <input type="url" id="edit-photo-gabriel" placeholder="https://..." class="form-input" style="width: 100%;">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Anotações e Estilo</label>
+                    <textarea id="edit-room-notes" rows="3" class="form-textarea" placeholder="Paleta de cores, estilo..."></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" onclick="deleteCurrentRoom()" class="btn btn-secondary" style="color: #ef4444; border-color: rgba(239,68,68,0.3);">
+                        <i class="fa-solid fa-trash"></i> Excluir Cômodo
+                    </button>
+                    <div style="display: flex; gap: 8px;">
+                        <button type="button" onclick="closeModal('edit-modal')" class="btn btn-secondary">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Criação -->
+    <div id="add-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fa-solid fa-plus" style="color: var(--gabriel-color);"></i> Adicionar Cômodo</h3>
+                <button onclick="closeModal('add-modal')" class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form onsubmit="createNewRoom(event)">
+                <div class="form-group">
+                    <label class="form-label">Nome do Cômodo</label>
+                    <input type="text" id="add-room-title" placeholder="Ex: Closet, Ateliê..." required class="form-input" style="width: 100%;">
+                </div>
+
+                <div class="form-row-2 form-group">
+                    <div>
+                        <label class="form-label">Emoji / Ícone</label>
+                        <input type="text" id="add-room-icon" value="🏠" class="form-input" style="width: 100%;">
+                    </div>
+                    <div>
+                        <label class="form-label">Responsável</label>
+                        <select id="add-room-owner" class="form-select" style="width: 100%;">
+                            <option value="Ambos">Ambos 💜</option>
+                            <option value="Marcella">Marcella 🌸</option>
+                            <option value="Gabriel">Gabriel ⚡</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-actions" style="justify-content: flex-end; gap: 8px;">
+                    <button type="button" onclick="closeModal('add-modal')" class="btn btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Criar Cômodo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Lightbox (Zoom nas Fotos) -->
+    <div id="lightbox-modal" class="modal-overlay" onclick="closeModal('lightbox-modal')">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <img id="lightbox-img" src="" alt="Ampliada" class="lightbox-img">
+            <p id="lightbox-caption" class="lightbox-caption"></p>
+        </div>
+    </div>
+
+    <!-- Arquivo JS Externo -->
+    <script src="script.js"></script>
+</body>
+</html>
