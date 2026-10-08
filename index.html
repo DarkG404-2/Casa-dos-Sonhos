@@ -3,893 +3,151 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apartamento dos Sonhos - Marcella & Gabriel</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-notion: #191919;
-      --card-bg: #222222;
-      --card-hover: #2a2a2a;
-      --border-color: #373737;
-      --text-main: #d4d4d4;
-      --text-muted: #8c8c8c;
-      --text-bright: #ffffff;
-      
-      --color-marcella: #e5a4b4;
-      --color-gabriel: #7ca1c7;
-      --color-ambos: #b598ce;
-      
-      --badge-marcella-bg: rgba(229, 164, 180, 0.15);
-      --badge-gabriel-bg: rgba(124, 161, 199, 0.15);
-      --badge-ambos-bg: rgba(181, 152, 206, 0.15);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-notion);
-      color: var(--text-main);
-      padding: 24px 16px;
-      max-width: 1200px;
-      margin: 0 auto;
-      line-height: 1.5;
-    }
-
-    /* HEADER & HERO */
-    .header-container {
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 20px;
-      margin-bottom: 24px;
-    }
-
-    .hero-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--text-bright);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .hero-title span.heart {
-      color: #e25555;
-    }
-
-    .hero-subtitle {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-    }
-
-    /* BARRA DE PROGRESSO & STATS */
-    .stats-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      background: var(--card-bg);
-      padding: 16px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      margin-bottom: 20px;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .stat-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-muted);
-    }
-
-    .stat-value {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text-bright);
-    }
-
-    .progress-container {
-      flex: 1;
-      min-width: 200px;
-    }
-
-    .progress-bar-bg {
-      height: 8px;
-      background: #2c2c2c;
-      border-radius: 4px;
-      overflow: hidden;
-      margin-top: 6px;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--color-marcella), var(--color-gabriel));
-      width: 0%;
-      transition: width 0.4s ease;
-    }
-
-    /* CONTROLES E FILTROS */
-    .controls-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .filter-group {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      background: #2a2a2a;
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn:hover {
-      background: #333333;
-      color: var(--text-bright);
-    }
-
-    .btn-active {
-      background: #383838;
-      border-color: #555;
-      color: var(--text-bright);
-    }
-
-    .btn-primary {
-      background: #2e4057;
-      border-color: #415a77;
-      color: #ffffff;
-    }
-
-    .btn-primary:hover {
-      background: #3d526d;
-    }
-
-    /* GRID DOS CÔMODOS */
-    .rooms-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 20px;
-    }
-
-    .room-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-
-    .room-card:hover {
-      border-color: #4a4a4a;
-    }
-
-    .room-header {
-      padding: 14px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .room-title {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--text-bright);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* BADGES DE RESPONSÁVEL */
-    .owner-badge {
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .owner-marcella {
-      background: var(--badge-marcella-bg);
-      color: var(--color-marcella);
-      border: 1px solid rgba(229, 164, 180, 0.3);
-    }
-
-    .owner-gabriel {
-      background: var(--badge-gabriel-bg);
-      color: var(--color-gabriel);
-      border: 1px solid rgba(124, 161, 199, 0.3);
-    }
-
-    .owner-ambos {
-      background: var(--badge-ambos-bg);
-      color: var(--color-ambos);
-      border: 1px solid rgba(181, 152, 206, 0.3);
-    }
-
-    /* SEÇÃO DE FOTOS DO CASAL */
-    .photos-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-      background: var(--border-color);
-      height: 180px;
-      position: relative;
-    }
-
-    .photo-box {
-      background: #1e1e1e;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .photo-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s;
-    }
-
-    .photo-box:hover img {
-      transform: scale(1.05);
-    }
-
-    .photo-tag {
-      position: absolute;
-      bottom: 8px;
-      left: 8px;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(4px);
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 0.7rem;
-      font-weight: 500;
-      color: #fff;
-    }
-
-    .photo-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-size: 0.75rem;
-      gap: 4px;
-      text-align: center;
-      padding: 8px;
-    }
-
-    /* CONTEÚDO DO CARD */
-    .room-body {
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      flex: 1;
-    }
-
-    .room-status-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .status-select {
-      background: #1a1a1a;
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      outline: none;
-    }
-
-    .room-notes {
-      font-size: 0.85rem;
-      color: #a0a0a0;
-      background: #1a1a1a;
-      padding: 8px 10px;
-      border-radius: 6px;
-      border-left: 3px solid #555;
-      font-style: italic;
-    }
-
-    /* CHECKLIST */
-    .checklist-section {
-      margin-top: 4px;
-    }
-
-    .checklist-title {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .checklist-items {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .checklist-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      background: #1e1e1e;
-      padding: 6px 8px;
-      border-radius: 4px;
-    }
-
-    .checklist-item input[type="checkbox"] {
-      accent-color: var(--color-ambos);
-      cursor: pointer;
-    }
-
-    .checklist-item.done {
-      text-decoration: line-through;
-      color: var(--text-muted);
-    }
-
-    /* RODAPÉ DO CARD */
-    .room-footer {
-      padding: 12px 16px;
-      background: #1c1c1c;
-      border-top: 1px solid var(--border-color);
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    /* MODAL */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(4px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      padding: 16px;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal-content {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      width: 100%;
-      max-width: 500px;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 20px;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .modal-title {
-      font-size: 1.1rem;
-      color: var(--text-bright);
-      font-weight: 600;
-    }
-
-    .close-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .form-control {
-      width: 100%;
-      background: #181818;
-      border: 1px solid var(--border-color);
-      color: var(--text-bright);
-      padding: 8px 10px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      outline: none;
-    }
-
-    .form-control:focus {
-      border-color: #555;
-    }
-
-    .help-text {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    .modal-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 20px;
-    }
-  </style>
+  <title>Nosso Apartamento dos Sonhos ✨</title>
+  
+  <!-- Fontes do Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- HEADER -->
-  <div class="header-container">
-    <div class="hero-title">
-      🏢 Nosso Apartamento dos Sonhos <span class="heart">♥</span>
-    </div>
-    <div class="hero-subtitle">
-      Espaço especial de planejamento e inspirações para Marcella & Gabriel
-    </div>
-
-    <!-- STATS BAR -->
-    <div class="stats-bar">
-      <div class="stat-item">
-        <span class="stat-label">Cômodos Planejados</span>
-        <span class="stat-value" id="total-rooms">0</span>
-      </div>
-      <div class="progress-container">
-        <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted);">
-          <span>Progresso da Decoração</span>
-          <span id="progress-text">0%</span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progress-fill"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FILTROS E CONTROLES -->
-  <div class="controls-row">
-    <div class="filter-group">
-      <button class="btn btn-active" onclick="filterByOwner('all', this)">Todos</button>
-      <button class="btn" onclick="filterByOwner('Marcella', this)" style="border-color: rgba(229, 164, 180, 0.4);">🌸 Marcella</button>
-      <button class="btn" onclick="filterByOwner('Gabriel', this)" style="border-color: rgba(124, 161, 199, 0.4);">⚡ Gabriel</button>
-      <button class="btn" onclick="filterByOwner('Ambos', this)" style="border-color: rgba(181, 152, 206, 0.4);">✨ Ambos</button>
-    </div>
-
-    <div style="display: flex; gap: 8px;">
-      <button class="btn" onclick="exportData()" title="Salvar backup">💾 Exportar</button>
-      <button class="btn" onclick="importData()" title="Carregar backup">📂 Importar</button>
-    </div>
-  </div>
-
-  <!-- GRID DOS CÔMODOS -->
-  <div class="rooms-grid" id="rooms-container"></div>
-
-  <!-- MODAL DE EDIÇÃO -->
-  <div class="modal-overlay" id="edit-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="modal-title" id="modal-room-name">Editar Cômodo</div>
-        <button class="close-btn" onclick="closeModal()">&times;</button>
-      </div>
-
-      <input type="hidden" id="edit-room-id">
-
-      <div class="form-group">
-        <label>Responsável Principal</label>
-        <select class="form-control" id="edit-owner">
-          <option value="Marcella">Marcella</option>
-          <option value="Gabriel">Gabriel</option>
-          <option value="Ambos">Ambos</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Link da Foto da Marcella (URL)</label>
-        <input type="text" class="form-control" id="edit-photo-marcella" placeholder="https://exemplo.com/foto.jpg">
-        <div class="help-text">Dica: Clique com botão direito na foto -> "Copiar endereço da imagem"</div>
-      </div>
-
-      <div class="form-group">
-        <label>Link da Foto do Gabriel (URL)</label>
-        <input type="text" class="form-control" id="edit-photo-gabriel" placeholder="https://exemplo.com/foto.jpg">
-      </div>
-
-      <div class="form-group">
-        <label>Anotações do Casal</label>
-        <textarea class="form-control" id="edit-notes" rows="3" placeholder="Ideias de cores, estilo, móveis..."></textarea>
-      </div>
-
-      <div class="modal-actions">
-        <button class="btn" onclick="closeModal()">Cancelar</button>
-        <button class="btn btn-primary" onclick="saveRoomEdit()">Salvar Alterações</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // DADOS INICIAIS DOS CÔMODOS
-    const defaultRooms = [
-      {
-        id: 'sala',
-        name: 'Sala de Estar & TV',
-        owner: 'Ambos',
-        status: 'Em Planejamento',
-        photoMarcella: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600',
-        photoGabriel: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600',
-        notes: 'Queremos um sofá bem confortável em L e rack flutuante com iluminação LED.',
-        items: [
-          { name: 'Sofá retrátil cinza', done: false },
-          { name: 'Painel e TV 65"', done: true },
-          { name: 'Mesa de centro amadeirada', done: false }
-        ]
-      },
-      {
-        id: 'cozinha',
-        name: 'Cozinha & Copa',
-        owner: 'Marcella',
-        status: 'Ideia',
-        photoMarcella: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600',
-        photoGabriel: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=600',
-        notes: 'Armários planejados escuros com iluminação sob os armários superiores.',
-        items: [
-          { name: 'Geladeira Inox', done: true },
-          { name: 'Cooktop de Indução', done: false },
-          { name: 'Torneira Gourmet', done: false }
-        ]
-      },
-      {
-        id: 'suite',
-        name: 'Quarto Suíte Principal',
-        owner: 'Ambos',
-        status: 'Em Planejamento',
-        photoMarcella: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600',
-        photoGabriel: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=600',
-        notes: 'Cabeceira estofada até o teto com pendentes quentes nos criados-mudos.',
-        items: [
-          { name: 'Cama Queen Size', done: true },
-          { name: 'Guarda-roupa planejado', done: false },
-          { name: 'Espelho de corpo inteiro', done: false }
-        ]
-      },
-      {
-        id: 'banheiro-suite',
-        name: 'Banheiro Suíte',
-        owner: 'Marcella',
-        status: 'Ideia',
-        photoMarcella: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600',
-        photoGabriel: '',
-        notes: 'Nicho iluminado no box e porcelanato revestindo a parede principal.',
-        items: [
-          { name: 'Box até o teto', done: false },
-          { name: 'Armário sob a pia', done: false }
-        ]
-      },
-      {
-        id: 'varanda',
-        name: 'Varanda / Sacada Gourmet',
-        owner: 'Gabriel',
-        status: 'Ideia',
-        photoMarcella: '',
-        photoGabriel: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600',
-        notes: 'Espaço relax com duas poltronas aconchegantes e plantinhas.',
-        items: [
-          { name: 'Mesa Bistrô com 2 cadeiras', done: false },
-          { name: 'Jardim vertical', done: false }
-        ]
-      },
-      {
-        id: 'office',
-        name: 'Home Office / Quarto Flex',
-        owner: 'Gabriel',
-        status: 'Ideia',
-        photoMarcella: '',
-        photoGabriel: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600',
-        notes: 'Bancada larga para 2 monitores e cadeira ergonômica.',
-        items: [
-          { name: 'Mesa de trabalho grande', done: false },
-          { name: 'Cadeira ergonômica', done: true }
-        ]
-      },
-      {
-        id: 'lavabo',
-        name: 'Banheiro Social / Lavabo',
-        owner: 'Marcella',
-        status: 'Ideia',
-        photoMarcella: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?w=600',
-        photoGabriel: '',
-        notes: 'Papel de parede texturizado e espelho orgânico iluminado.',
-        items: [
-          { name: 'Espelho orgânico LED', done: false }
-        ]
-      },
-      {
-        id: 'lavanderia',
-        name: 'Área de Serviço / Lavanderia',
-        owner: 'Ambos',
-        status: 'Ideia',
-        photoMarcella: '',
-        photoGabriel: '',
-        notes: 'Armário para esconder produtos e varal retrátil.',
-        items: [
-          { name: 'Lava e Seca Inox', done: false }
-        ]
-      }
-    ];
-
-    let rooms = [];
-    let currentFilter = 'all';
-
-    // INICIALIZAÇÃO
-    function init() {
-      const saved = localStorage.getItem('dream_apartment_data');
-      if (saved) {
-        try {
-          rooms = JSON.parse(saved);
-        } catch(e) {
-          rooms = defaultRooms;
-        }
-      } else {
-        rooms = defaultRooms;
-      }
-      render();
-    }
-
-    // SALVAR NO LOCALSTORAGE
-    function saveData() {
-      localStorage.setItem('dream_apartment_data', JSON.stringify(rooms));
-      render();
-    }
-
-    // FILTRO
-    function filterByOwner(owner, btn) {
-      currentFilter = owner;
-      document.querySelectorAll('.filter-group .btn').forEach(b => b.classList.remove('btn-active'));
-      btn.classList.add('btn-active');
-      render();
-    }
-
-    // CÁLCULO DE PROGRESSO
-    function updateStats() {
-      document.getElementById('total-rooms').textContent = rooms.length;
+  <!-- BANNER / CAPA REINVENTADA -->
+  <header class="hero-cover" id="heroCover">
+    <div class="hero-overlay"></div>
+    
+    <!-- Botão para trocar a foto de capa -->
+    <button class="change-cover-btn" id="btnChangeCover" title="Personalizar foto de capa">
+      <span>📷 Alterar Capa</span>
+    </button>
+    
+    <div class="hero-content">
+      <div class="badge-couple">Marcella & Gabriel</div>
+      <h1 class="hero-title">Nosso Apartamento dos Sonhos</h1>
+      <p class="hero-subtitle">Nosso refúgio, nossas ideias e cada detalhe do nosso futuro lar ♥</p>
       
-      let totalItems = 0;
-      let doneItems = 0;
+      <!-- Estatísticas Emocionais -->
+      <div class="dream-stats">
+        <div class="stat-card">
+          <span class="stat-number" id="statTotalRooms">0</span>
+          <span class="stat-label">Cômodos Mapeados</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-card">
+          <span class="stat-number" id="statIdeasCount">0</span>
+          <span class="stat-label">Inspirações Guardadas</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-card">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">Amor e Planos</span>
+        </div>
+      </div>
+    </div>
+  </header>
 
-      rooms.forEach(room => {
-        if (room.items) {
-          totalItems += room.items.length;
-          doneItems += room.items.filter(i => i.done).length;
-        }
-      });
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="main-container">
+    
+    <!-- CONTROLES: FILTROS E BOTÃO ADICIONAR -->
+    <section class="controls-bar">
+      <div class="filter-group">
+        <label class="filter-label">Ver escolhas de:</label>
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="Todos">✨ Todos</button>
+          <button class="filter-btn" data-filter="Marcella">🌸 Marcella</button>
+          <button class="filter-btn" data-filter="Gabriel">🌿 Gabriel</button>
+          <button class="filter-btn" data-filter="Ambos">💞 Ambos</button>
+        </div>
+      </div>
 
-      const percent = totalItems > 0 ? Math.round((doneItems / totalItems) * 100) : 0;
-      document.getElementById('progress-text').textContent = `${percent}%`;
-      document.getElementById('progress-fill').style.width = `${percent}%`;
-    }
+      <button class="btn-primary" id="btnAddRoom">
+        <span class="btn-icon">+</span>
+        <span>Adicionar Novo Cômodo</span>
+      </button>
+    </section>
 
-    // RENDERIZAR TELA
-    function render() {
-      updateStats();
-      const container = document.getElementById('rooms-container');
-      container.innerHTML = '';
+    <!-- GRID DOS CÔMODOS -->
+    <section class="rooms-grid" id="roomsGrid">
+      <!-- Os cards dos cômodos serão renderizados dinamicamente via JS -->
+    </section>
+  </main>
 
-      const filtered = currentFilter === 'all' 
-        ? rooms 
-        : rooms.filter(r => r.owner === currentFilter);
-
-      filtered.forEach(room => {
-        const ownerClass = `owner-${room.owner.toLowerCase()}`;
+  <!-- MODAL: ADICIONAR / EDITAR CÔMODO -->
+  <div class="modal-backdrop" id="roomModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="modalTitle">Planejar Novo Cômodo</h2>
+        <button class="close-btn" id="btnCloseModal">&times;</button>
+      </div>
+      
+      <form id="roomForm" class="modal-form">
+        <input type="hidden" id="editRoomId">
         
-        let photoMarcellaHTML = room.photoMarcella 
-          ? `<img src="${room.photoMarcella}" onerror="this.src='https://via.placeholder.com/300x200/222/888?text=Link+Invalido'">`
-          : `<div class="photo-placeholder"><span>🌸 Marcella</span><span style="font-size:0.65rem;">Sem foto</span></div>`;
+        <div class="form-group">
+          <label for="roomName">Nome do Cômodo *</label>
+          <input type="text" id="roomName" placeholder="Ex: Sala de Estar, Varanda Gourmet..." required>
+        </div>
 
-        let photoGabrielHTML = room.photoGabriel 
-          ? `<img src="${room.photoGabriel}" onerror="this.src='https://via.placeholder.com/300x200/222/888?text=Link+Invalido'">`
-          : `<div class="photo-placeholder"><span>⚡ Gabriel</span><span style="font-size:0.65rem;">Sem foto</span></div>`;
+        <div class="form-group">
+          <label for="roomOwner">Idealizado por *</label>
+          <select id="roomOwner" required>
+            <option value="Marcella">Marcella</option>
+            <option value="Gabriel">Gabriel</option>
+            <option value="Ambos" selected>Ambos (Nós dois)</option>
+          </select>
+        </div>
 
-        let checklistHTML = '';
-        if (room.items && room.items.length > 0) {
-          checklistHTML = `
-            <div class="checklist-section">
-              <div class="checklist-title">Itens & Desejos</div>
-              <div class="checklist-items">
-                ${room.items.map((item, idx) => `
-                  <div class="checklist-item ${item.done ? 'done' : ''}">
-                    <input type="checkbox" ${item.done ? 'checked' : ''} onchange="toggleItem('${room.id}',${idx})">
-                    <span>${item.name}</span>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          `;
-        }
+        <div class="form-group">
+          <label for="roomImage">Link da Foto de Inspiração (URL)</label>
+          <input type="url" id="roomImage" placeholder="https://exemplo.com/minha-imagem.jpg">
+          <small class="form-hint">Dica: Clique com o botão direito numa imagem do Pinterest/Google e selecione "Copiar endereço da imagem".</small>
+        </div>
 
-        const card = document.createElement('div');
-        card.className = 'room-card';
-        card.innerHTML = `
-          <div class="room-header">
-            <div class="room-title">${room.name}</div>
-            <span class="owner-badge ${ownerClass}">${room.owner}</span>
-          </div>
+        <div class="form-group">
+          <label for="roomStyle">Estilo / Vibe do Ambiente</label>
+          <input type="text" id="roomStyle" placeholder="Ex: Minimalista, Aconchegante, Industrial, Iluminação Quente...">
+        </div>
 
-          <div class="photos-container">
-            <div class="photo-box">
-              ${photoMarcellaHTML}
-              <span class="photo-tag">Marcella</span>
-            </div>
-            <div class="photo-box">
-              ${photoGabrielHTML}
-              <span class="photo-tag">Gabriel</span>
-            </div>
-          </div>
+        <div class="form-group">
+          <label for="roomNotes">Visão e Detalhes Especiais</label>
+          <textarea id="roomNotes" rows="3" placeholder="Escreva o que não pode faltar: iluminação em LED, sofá retrátil cinza, plantas..."></textarea>
+        </div>
 
-          <div class="room-body">
-            <div class="room-status-row">
-              <span style="font-size:0.8rem; color:var(--text-muted);">Status:</span>
-              <select class="status-select" onchange="updateStatus('${room.id}', this.value)">
-                <option value="Ideia" ${room.status === 'Ideia' ? 'selected' : ''}>💡 Ideia</option>
-                <option value="Em Planejamento" ${room.status === 'Em Planejamento' ? 'selected' : ''}>📝 Em Planejamento</option>
-                <option value="Comprando" ${room.status === 'Comprando' ? 'selected' : ''}>🛍️ Comprando</option>
-                <option value="Concluído" ${room.status === 'Concluído' ? 'selected' : ''}>✅ Concluído</option>
-              </select>
-            </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" id="btnCancelModal">Cancelar</button>
+          <button type="submit" class="btn-primary">Salvar no Nosso Sonho</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-            ${room.notes ? `<div class="room-notes">"${room.notes}"</div>` : ''}
+  <!-- MODAL: TROCAR CAPA -->
+  <div class="modal-backdrop" id="coverModal">
+    <div class="modal-card modal-small">
+      <div class="modal-header">
+        <h2>Alterar Foto de Capa</h2>
+        <button class="close-btn" id="btnCloseCoverModal">&times;</button>
+      </div>
+      
+      <form id="coverForm" class="modal-form">
+        <div class="form-group">
+          <label for="coverImageUrl">Link da Imagem (URL)</label>
+          <input type="url" id="coverImageUrl" placeholder="https://exemplo.com/foto-de-capa.jpg" required>
+        </div>
+        
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" id="btnCancelCoverModal">Cancelar</button>
+          <button type="submit" class="btn-primary">Atualizar Capa</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-            ${checklistHTML}
-          </div>
-
-          <div class="room-footer">
-            <button class="btn" onclick="openEditModal('${room.id}')">✏️ Editar / Add Fotos</button>
-          </div>
-        `;
-
-        container.appendChild(card);
-      });
-    }
-
-    // MUDAR STATUS
-    function updateStatus(id, newStatus) {
-      const room = rooms.find(r => r.id === id);
-      if (room) {
-        room.status = newStatus;
-        saveData();
-      }
-    }
-
-    // CHECKLIST TOGGLE
-    function toggleItem(roomId, itemIdx) {
-      const room = rooms.find(r => r.id === roomId);
-      if (room && room.items[itemIdx]) {
-        room.items[itemIdx].done = !room.items[itemIdx].done;
-        saveData();
-      }
-    }
-
-    // ABRIR MODAL DE EDIÇÃO
-    function openEditModal(id) {
-      const room = rooms.find(r => r.id === id);
-      if (!room) return;
-
-      document.getElementById('edit-room-id').value = room.id;
-      document.getElementById('modal-room-name').textContent = `Editar: ${room.name}`;
-      document.getElementById('edit-owner').value = room.owner;
-      document.getElementById('edit-photo-marcella').value = room.photoMarcella || '';
-      document.getElementById('edit-photo-gabriel').value = room.photoGabriel || '';
-      document.getElementById('edit-notes').value = room.notes || '';
-
-      document.getElementById('edit-modal').classList.add('active');
-    }
-
-    function closeModal() {
-      document.getElementById('edit-modal').classList.remove('active');
-    }
-
-    // SALVAR EDIÇÃO DO MODAL
-    function saveRoomEdit() {
-      const id = document.getElementById('edit-room-id').value;
-      const room = rooms.find(r => r.id === id);
-
-      if (room) {
-        room.owner = document.getElementById('edit-owner').value;
-        room.photoMarcella = document.getElementById('edit-photo-marcella').value.trim();
-        room.photoGabriel = document.getElementById('edit-photo-gabriel').value.trim();
-        room.notes = document.getElementById('edit-notes').value.trim();
-
-        saveData();
-        closeModal();
-      }
-    }
-
-    // EXPORTAR & IMPORTAR BACKUP JSON
-    function exportData() {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(rooms, null, 2));
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", "apartamento_marcella_gabriel.json");
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
-    }
-
-    function importData() {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'application/json';
-      input.onchange = e => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onload = event => {
-          try {
-            const imported = JSON.parse(event.target.result);
-            if (Array.isArray(imported)) {
-              rooms = imported;
-              saveData();
-              alert('Dados importados com sucesso!');
-            }
-          } catch(err) {
-            alert('Arquivo JSON inválido.');
-          }
-        };
-        reader.readAsText(file);
-      };
-      input.click();
-    }
-
-    // INICIAR
-    init();
-  </script>
+  <!-- Script JS -->
+  <script src="script.js"></script>
 </body>
 </html>
