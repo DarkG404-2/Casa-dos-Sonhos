@@ -60,34 +60,143 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f7f2e9;
-      color: #2c241d;
+      background: linear-gradient(180deg, #111827 0%, #0f172a 100%);
+      color: #f8f5f0;
     }
     .font-serif-title {
       font-family: 'Playfair Display', serif;
     }
     .glass-card {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(17, 24, 39, 0.9);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
     .glass-nav {
-      background: rgba(253, 251, 247, 0.9);
+      background: rgba(15, 23, 42, 0.88);
       backdrop-filter: blur(8px);
+      border-color: rgba(255, 255, 255, 0.08) !important;
     }
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
     }
     .custom-scrollbar::-webkit-scrollbar-track {
-      background: #f1f1f1;
+      background: rgba(148, 163, 184, 0.15);
       border-radius: 10px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #d4c5b3;
+      background: rgba(148, 163, 184, 0.5);
       border-radius: 10px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: #b8a692;
+      background: rgba(148, 163, 184, 0.7);
+    }
+
+    body .bg-white,
+    body .bg-white\/80,
+    body .bg-warm-50,
+    body .bg-warm-50\/80,
+    body .bg-warm-100,
+    body .bg-warm-200,
+    body .bg-rose-50,
+    body .bg-sage-100,
+    body .bg-amber-50,
+    body .bg-gray-100,
+    body .bg-rose-100,
+    body .bg-slate-100,
+    body .bg-amber-100 {
+      background-color: #1f2937 !important;
+    }
+
+    body .text-warm-900,
+    body .text-warm-800,
+    body .text-warm-300,
+    body .text-warm-200,
+    body .text-slateCustom-800,
+    body .text-slate-700,
+    body .text-amber-800,
+    body .text-gray-600 {
+      color: #f3efe9 !important;
+    }
+
+    body .text-warm-800.opacity-70,
+    body .text-warm-800.opacity-80,
+    body .text-warm-800.opacity-75,
+    body .text-warm-800.opacity-60,
+    body .text-warm-800.opacity-50,
+    body .text-warm-300.opacity-75,
+    body .text-warm-300.opacity-60 {
+      opacity: 1 !important;
+      color: #d8d4cf !important;
+    }
+
+    body .border-warm-200,
+    body .border-warm-200\/60,
+    body .border-warm-300,
+    body .border-warm-100,
+    body .border-white\/80,
+    body .border-warm-300\/50,
+    body .border-warm-200\/80,
+    body .border-white\/20,
+    body .border-dashed,
+    body .border-warm-300 {
+      border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    body input,
+    body select,
+    body textarea,
+    body .bg-warm-50,
+    body .bg-warm-50\/80 {
+      color: #f8f5f0 !important;
+      background-color: rgba(15, 23, 42, 0.8) !important;
+      border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    body .text-rose-600,
+    body .text-rose-700,
+    body .text-sage-700,
+    body .text-amber-700,
+    body .text-slate-500 {
+      color: #f9a8d4 !important;
+    }
+
+    body .bg-rose-100,
+    body .bg-rose-100\/80,
+    body .bg-rose-50,
+    body .bg-sage-100,
+    body .bg-amber-100,
+    body .bg-slate-100,
+    body .bg-amber-50 {
+      background-color: rgba(55, 65, 81, 0.9) !important;
+    }
+
+    body .bg-rose-600,
+    body .bg-gradient-to-r.from-rose-600.to-rose-700,
+    body .hover\:bg-rose-700,
+    body .bg-rose-100.text-rose-600,
+    body .bg-rose-100\/80.text-rose-600 {
+      background: linear-gradient(135deg, #fb7185, #e11d48) !important;
+    }
+
+    body .text-shadow {
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    body .bg-black\/60,
+    body .bg-black\/40 {
+      background-color: rgba(15, 23, 42, 0.65) !important;
+    }
+
+    body .filter-btn {
+      color: #e5e7eb !important;
+    }
+
+    body .filter-btn.active,
+    body .filter-btn.bg-white,
+    body .filter-btn.shadow-sm {
+      background-color: rgba(31, 41, 55, 0.95) !important;
+      color: #f8f5f0 !important;
+      box-shadow: none !important;
     }
   </style>
 </head>
@@ -158,7 +267,7 @@
 
     <!-- DASHBOARD STATS SECTION -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 sm:-mt-14 relative z-10">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         
         <!-- Total Rooms Card -->
         <div class="glass-card rounded-2xl p-5 shadow-lg flex items-center space-x-4 border border-white/80">
@@ -182,14 +291,6 @@
             <div id="statProgressBar" class="bg-gradient-to-r from-rose-400 to-rose-600 h-full rounded-full transition-all duration-700 ease-out" style="width: 0%"></div>
           </div>
           <p id="statProgressText" class="text-xs text-warm-800 opacity-80 mt-1">0 de 0 tarefas concluídas</p>
-        </div>
-
-        <!-- Budget Summary Card -->
-        <div class="glass-card rounded-2xl p-5 shadow-lg flex items-center space-x-4 border border-white/80">
-          <div class="w-14 h-14 rounded-2xl bg-sage-100 text-sage-700 flex items-center justify-center text-2xl shadow-inner shrink-0">
-            <i class="fa-solid fa-wallet"></i>
-          </div>
-        
         </div>
 
       </div>
@@ -286,20 +387,14 @@
           </div>
         </div>
 
-        <!-- Budget & Status -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-1">Orçamento Estimado (R$)</label>
-            <input type="number" id="roomBudget" step="0.01" min="0" placeholder="0.00" class="w-full px-3.5 py-2.5 text-sm bg-warm-50 border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 transition">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-1">Status do Ambiente</label>
-            <select id="roomStatus" class="w-full px-3.5 py-2.5 text-sm bg-warm-50 border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 transition">
-              <option value="Pendente">Pendente</option>
-              <option value="Em Andamento">Em Andamento</option>
-              <option value="Concluído">Concluído</option>
-            </select>
-          </div>
+        <!-- Status -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-1">Status do Ambiente</label>
+          <select id="roomStatus" class="w-full px-3.5 py-2.5 text-sm bg-warm-50 border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 transition">
+            <option value="Pendente">Pendente</option>
+            <option value="Em Andamento">Em Andamento</option>
+            <option value="Concluído">Concluído</option>
+          </select>
         </div>
 
         <!-- Image URL -->
@@ -387,7 +482,6 @@
         id: '1',
         name: 'Sala de Estar & Jantar',
         responsable: 'Ambos',
-        budget: 12500,
         status: 'Em Andamento',
         image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
         notes: 'Queremos uma iluminação bem aconchegante com tons neutros e madeira clara.',
@@ -402,7 +496,6 @@
         id: '2',
         name: 'Quarto Principal',
         responsable: 'Marcella',
-        budget: 8900,
         status: 'Em Andamento',
         image: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80',
         notes: 'Cabeceira estofada até o teto com fita LED embutida.',
@@ -417,7 +510,6 @@
         id: '3',
         name: 'Cozinha Gourmet',
         responsable: 'Gabriel',
-        budget: 15000,
         status: 'Pendente',
         image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80',
         notes: 'Bancada em granito São Gabriel escovado e armários grafite.',
@@ -432,7 +524,6 @@
         id: '4',
         name: 'Varanda Integrada',
         responsable: 'Ambos',
-        budget: 4500,
         status: 'Concluído',
         image: 'https://images.unsplash.com/photo-1533779283484-8da492f161a4?auto=format&fit=crop&w=800&q=80',
         notes: 'Cantinho do café e espaço verde com plantas suspensas.',
@@ -506,13 +597,6 @@
       // Total Rooms
       document.getElementById('statTotalRooms').textContent = rooms.length;
 
-      // Budget Calculation
-      const totalBudget = rooms.reduce((acc, curr) => acc + (parseFloat(curr.budget) || 0), 0);
-      document.getElementById('statTotalBudget').textContent = new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-      }).format(totalBudget);
-
       // Tasks & Progress Calculation
       let totalTasks = 0;
       let completedTasks = 0;
@@ -584,11 +668,6 @@
           tasksHtml = `<p class="text-xs text-warm-800 opacity-50 italic">Nenhuma tarefa adicionada.</p>`;
         }
 
-        const formattedBudget = new Intl.NumberFormat('pt-BR', {
-          style: 'currency',
-          currency: 'BRL'
-        }).format(room.budget || 0);
-
         card.innerHTML = `
           <!-- Image Banner -->
           <div class="relative h-48 w-full overflow-hidden bg-warm-100 group">
@@ -641,12 +720,6 @@
               </div>
             </div>
 
-            <!-- Footer info -->
-            <div class="pt-3 border-t border-warm-100 flex items-center justify-between text-xs">
-              <span class="text-warm-800 opacity-75">Orçamento Estimado:</span>
-              <span class="font-bold font-serif-title text-warm-900 text-sm">${formattedBudget}</span>
-            </div>
-
           </div>
         `;
 
@@ -681,7 +754,6 @@
           document.getElementById('roomId').value = room.id;
           document.getElementById('roomName').value = room.name;
           document.getElementById('roomResponsable').value = room.responsable;
-          document.getElementById('roomBudget').value = room.budget || '';
           document.getElementById('roomStatus').value = room.status || 'Pendente';
           document.getElementById('roomImage').value = room.image || '';
           document.getElementById('roomNotes').value = room.notes || '';
@@ -705,7 +777,6 @@
       const id = document.getElementById('roomId').value;
       const name = document.getElementById('roomName').value.trim();
       const responsable = document.getElementById('roomResponsable').value;
-      const budget = parseFloat(document.getElementById('roomBudget').value) || 0;
       const status = document.getElementById('roomStatus').value;
       const image = document.getElementById('roomImage').value.trim();
       const notes = document.getElementById('roomNotes').value.trim();
@@ -734,7 +805,6 @@
             ...rooms[index],
             name,
             responsable,
-            budget,
             status,
             image: image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
             notes,
@@ -747,7 +817,6 @@
           id: Date.now().toString(),
           name,
           responsable,
-          budget,
           status,
           image: image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
           notes,
