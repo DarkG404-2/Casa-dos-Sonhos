@@ -1,153 +1,816 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nosso Apartamento dos Sonhos ✨</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nosso Apartamento dos Sonhos ♥ | Marcella & Gabriel</title>
   
-  <!-- Fontes do Google -->
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Playfair Display & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
-  <!-- Estilos CSS -->
-  <link rel="stylesheet" href="estilo.css">
-</head>
-<body>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- BANNER / CAPA REINVENTADA -->
-  <header class="hero-cover" id="heroCover">
-    <div class="hero-overlay"></div>
-    
-    <!-- Botão para trocar a foto de capa -->
-    <button class="change-cover-btn" id="btnChangeCover" title="Personalizar foto de capa">
-      <span>📷 Alterar Capa</span>
-    </button>
-    
-    <div class="hero-content">
-      <div class="badge-couple">Marcella & Gabriel</div>
-      <h1 class="hero-title">Nosso Apartamento dos Sonhos</h1>
-      <p class="hero-subtitle">Nosso refúgio, nossas ideias e cada detalhe do nosso futuro lar ♥</p>
-      
-      <!-- Estatísticas Emocionais -->
-      <div class="dream-stats">
-        <div class="stat-card">
-          <span class="stat-number" id="statTotalRooms">0</span>
-          <span class="stat-label">Cômodos Mapeados</span>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            rose: {
+              50: '#fff5f7',
+              100: '#ffe3e8',
+              200: '#fcccd6',
+              400: '#e58296',
+              600: '#c84b65',
+              700: '#a3334a',
+            },
+            warm: {
+              50: '#fdfbf7',
+              100: '#f7f2e9',
+              200: '#eee3d3',
+              300: '#e2cfb7',
+              800: '#4a3f35',
+              900: '#2c241d',
+            },
+            sage: {
+              100: '#eaf0ec',
+              500: '#7a9e87',
+              700: '#4d6d58',
+            },
+            slateCustom: {
+              100: '#e2e8f0',
+              600: '#475569',
+              800: '#1e293b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f7f2e9;
+      color: #2c241d;
+    }
+    .font-serif-title {
+      font-family: 'Playfair Display', serif;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+    .glass-nav {
+      background: rgba(253, 251, 247, 0.9);
+      backdrop-filter: blur(8px);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #d4c5b3;
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #b8a692;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-rose-200 selection:text-rose-900">
+
+  <!-- NAVIGATION BAR -->
+  <nav class="sticky top-0 z-40 glass-nav border-b border-warm-200/60 shadow-sm transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-3">
+          <div class="bg-rose-100 text-rose-600 w-10 h-10 rounded-full flex items-center justify-center shadow-inner">
+            <i class="fa-solid fa-heart text-lg"></i>
+          </div>
+          <div>
+            <span class="font-serif-title text-xl font-bold tracking-tight text-warm-900">Marcella & Gabriel</span>
+            <span class="hidden sm:inline-block text-xs font-medium text-warm-800 opacity-75 ml-2 border-l border-warm-300 pl-2">Nosso Cantinho</span>
+          </div>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat-card">
-          <span class="stat-number" id="statIdeasCount">0</span>
-          <span class="stat-label">Inspirações Guardadas</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat-card">
-          <span class="stat-number">∞</span>
-          <span class="stat-label">Amor e Planos</span>
+
+        <div class="flex items-center space-x-3">
+          <button onclick="openCoverModal()" class="px-3.5 py-2 text-xs sm:text-sm font-medium text-warm-800 bg-white/80 hover:bg-white border border-warm-300/80 rounded-xl shadow-sm transition hover:shadow-md flex items-center gap-2">
+            <i class="fa-solid fa-image text-rose-400"></i>
+            <span class="hidden sm:inline">Trocar Capa</span>
+          </button>
+          <button onclick="openRoomModal()" class="px-4 py-2 text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 rounded-xl shadow-md transition hover:shadow-lg flex items-center gap-2 transform active:scale-95">
+            <i class="fa-solid fa-plus"></i>
+            <span>Novo Cômodo</span>
+          </button>
         </div>
       </div>
     </div>
-  </header>
+  </nav>
 
-  <!-- CONTEÚDO PRINCIPAL -->
-  <main class="main-container">
-    
-    <!-- CONTROLES: FILTROS E BOTÃO ADICIONAR -->
-    <section class="controls-bar">
-      <div class="filter-group">
-        <label class="filter-label">Ver escolhas de:</label>
-        <div class="filter-buttons">
-          <button class="filter-btn active" data-filter="Todos">✨ Todos</button>
-          <button class="filter-btn" data-filter="Marcella">🌸 Marcella</button>
-          <button class="filter-btn" data-filter="Gabriel">🌿 Gabriel</button>
-          <button class="filter-btn" data-filter="Ambos">💞 Ambos</button>
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="mb-auto">
+
+    <!-- HERO / COVER BANNER SECTION -->
+    <section class="relative w-full h-[320px] sm:h-[400px] lg:h-[460px] overflow-hidden group">
+      <!-- Background Image -->
+      <img id="heroCoverImage" 
+           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80" 
+           alt="Capa do Apartamento" 
+           class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+           onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80'">
+      
+      <!-- Gradient Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-t from-warm-900/90 via-warm-900/40 to-black/20 flex items-end">
+        <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-10 sm:pb-12 text-white">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs sm:text-sm font-medium mb-3 border border-white/30">
+            <i class="fa-solid fa-sparkles text-rose-300"></i>
+            <span>Nosso Apartamento dos Sonhos</span>
+          </div>
+          <h1 class="font-serif-title text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-shadow-sm leading-tight">
+            Nossa Casa, Nossas Escolhas ♥
+          </h1>
+          <p class="mt-2 text-sm sm:text-lg text-warm-100 max-w-2xl font-light">
+            Um espaço especial de planejamento e inspirações para Marcella & Gabriel construírem cada detalhe juntos.
+          </p>
         </div>
       </div>
 
-      <button class="btn-primary" id="btnAddRoom">
-        <span class="btn-icon">+</span>
-        <span>Adicionar Novo Cômodo</span>
+      <!-- Quick Edit Button Overlay -->
+      <button onclick="openCoverModal()" class="absolute top-4 right-4 bg-black/40 hover:bg-black/60 backdrop-blur-md text-white text-xs px-3 py-2 rounded-lg transition border border-white/20 flex items-center gap-1.5 opacity-90 hover:opacity-100">
+        <i class="fa-solid fa-camera"></i>
+        <span>Alterar Capa</span>
       </button>
     </section>
 
-    <!-- GRID DOS CÔMODOS -->
-    <section class="rooms-grid" id="roomsGrid">
-      <!-- Os cards dos cômodos serão renderizados dinamicamente via JS -->
+    <!-- DASHBOARD STATS SECTION -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 sm:-mt-14 relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        
+        <!-- Total Rooms Card -->
+        <div class="glass-card rounded-2xl p-5 shadow-lg flex items-center space-x-4 border border-white/80">
+          <div class="w-14 h-14 rounded-2xl bg-rose-100/80 text-rose-600 flex items-center justify-center text-2xl shadow-inner shrink-0">
+            <i class="fa-solid fa-door-open"></i>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-warm-800 opacity-70">Cômodos Mapeados</p>
+            <h3 id="statTotalRooms" class="text-2xl sm:text-3xl font-bold font-serif-title text-warm-900">0</h3>
+            <p class="text-xs text-warm-800 opacity-80 mt-0.5">Espaços do nosso lar</p>
+          </div>
+        </div>
+
+        <!-- Decor Progress Card -->
+        <div class="glass-card rounded-2xl p-5 shadow-lg flex flex-col justify-between border border-white/80">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-warm-800 opacity-70">Progresso da Decoração</span>
+            <span id="statProgressPercent" class="text-sm font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">0%</span>
+          </div>
+          <div class="w-full bg-warm-200 rounded-full h-3 overflow-hidden shadow-inner my-1">
+            <div id="statProgressBar" class="bg-gradient-to-r from-rose-400 to-rose-600 h-full rounded-full transition-all duration-700 ease-out" style="width: 0%"></div>
+          </div>
+          <p id="statProgressText" class="text-xs text-warm-800 opacity-80 mt-1">0 de 0 tarefas concluídas</p>
+        </div>
+
+        <!-- Budget Summary Card -->
+        <div class="glass-card rounded-2xl p-5 shadow-lg flex items-center space-x-4 border border-white/80">
+          <div class="w-14 h-14 rounded-2xl bg-sage-100 text-sage-700 flex items-center justify-center text-2xl shadow-inner shrink-0">
+            <i class="fa-solid fa-wallet"></i>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-warm-800 opacity-70">Orçamento Previsto</p>
+            <h3 id="statTotalBudget" class="text-2xl sm:text-3xl font-bold font-serif-title text-warm-900">R$ 0,00</h3>
+            <p class="text-xs text-warm-800 opacity-80 mt-0.5">Investimento em nosso sonho</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FILTER & ROOMS SECTION -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 mb-16">
+      
+      <!-- Section Header & Filters -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <div>
+          <h2 class="font-serif-title text-2xl sm:text-3xl font-bold text-warm-900">Ambientes & Inspirações</h2>
+          <p class="text-sm text-warm-800 opacity-80 mt-1">Navegue pelos cômodos e veja o progresso de cada um</p>
+        </div>
+
+        <!-- Responsável Filter Tabs -->
+        <div class="inline-flex p-1 bg-warm-200/70 rounded-xl self-start md:self-auto border border-warm-300/50 shadow-inner">
+          <button onclick="setFilter('todos')" id="filter-todos" class="filter-btn active px-3.5 py-1.5 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200">
+            Todos
+          </button>
+          <button onclick="setFilter('Marcella')" id="filter-Marcella" class="filter-btn px-3.5 py-1.5 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200">
+            <span class="w-2 h-2 rounded-full bg-rose-400 inline-block mr-1.5"></span>Marcella
+          </button>
+          <button onclick="setFilter('Gabriel')" id="filter-Gabriel" class="filter-btn px-3.5 py-1.5 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200">
+            <span class="w-2 h-2 rounded-full bg-slate-500 inline-block mr-1.5"></span>Gabriel
+          </button>
+          <button onclick="setFilter('Ambos')" id="filter-Ambos" class="filter-btn px-3.5 py-1.5 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200">
+            <span class="w-2 h-2 rounded-full bg-amber-500 inline-block mr-1.5"></span>Ambos
+          </button>
+        </div>
+      </div>
+
+      <!-- Rooms Grid Container -->
+      <div id="roomsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <!-- Dynamic Cards Inserted Here via JS -->
+      </div>
+
+      <!-- Empty State Container -->
+      <div id="emptyState" class="hidden text-center py-16 bg-white/50 rounded-3xl border border-dashed border-warm-300">
+        <div class="w-16 h-16 bg-rose-50 text-rose-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+          <i class="fa-solid fa-house-chimney-crack"></i>
+        </div>
+        <h3 class="text-xl font-serif-title font-bold text-warm-900">Nenhum cômodo encontrado</h3>
+        <p class="text-sm text-warm-800 opacity-75 max-w-md mx-auto mt-1 mb-6">Não há nenhum ambiente cadastrado para essa opção. Adicione um novo cômodo para começar!</p>
+        <button onclick="openRoomModal()" class="px-5 py-2.5 bg-rose-600 text-white font-medium rounded-xl text-sm shadow hover:bg-rose-700 transition">
+          <i class="fa-solid fa-plus mr-2"></i>Adicionar Cômodo
+        </button>
+      </div>
+
     </section>
   </main>
 
-  <!-- MODAL: ADICIONAR / EDITAR CÔMODO -->
-  <div class="modal-backdrop" id="roomModal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h2 id="modalTitle">Planejar Novo Cômodo</h2>
-        <button class="close-btn" id="btnCloseModal">&times;</button>
+  <!-- FOOTER -->
+  <footer class="bg-warm-900 text-warm-200 py-8 border-t border-warm-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div>
+        <p class="font-serif-title text-lg font-bold text-white">Nosso Apartamento dos Sonhos ♥</p>
+        <p class="text-xs text-warm-300 opacity-75 mt-0.5">Feito para guardar memórias e criar o nosso lar ideal.</p>
       </div>
-      
-      <form id="roomForm" class="modal-form">
-        <input type="hidden" id="editRoomId">
-        
-        <div class="form-group">
-          <label for="roomName">Nome do Cômodo *</label>
-          <input type="text" id="roomName" placeholder="Ex: Sala de Estar, Varanda Gourmet..." required>
+      <div class="text-xs text-warm-300 opacity-60">
+        Marcella & Gabriel &copy; <span id="currentYear"></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL: ADD / EDIT ROOM -->
+  <div id="roomModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-xl w-full p-6 sm:p-8 transform transition-all my-8 border border-warm-200 relative">
+      <button onclick="closeRoomModal()" class="absolute top-5 right-5 text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-warm-50 transition">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="mb-6">
+        <h3 id="modalRoomTitle" class="text-2xl font-serif-title font-bold text-warm-900">Adicionar Novo Cômodo</h3>
+        <p class="text-xs text-warm-800 opacity-70 mt-1">Preencha os detalhes do ambiente para organizar as ideias</p>
+      </div>
+
+      <form id="roomForm" onsubmit="saveRoom(event)" class="space-y-4">
+        <input type="hidden" id="roomId" value="">
+
+        <!-- Name & Responsavel -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-1">Nome do Cômodo *</label>
+            <input type="text" id="roomName" required placeholder="Ex: Sala de Estar" class="w-full px-3.5 py-2.5 text-sm bg-warm-50 border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 transition">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-1">Responsável *</label>
+            <select id="roomResponsable" required class="w-full px-3.5 py-2.5 text-sm bg-warm-50 border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 transition">
+              <option value="Ambos">Ambos (Marcella & Gabriel)</option>
+              <option value="Marcella">Marcella</option>
+              <option value="Gabriel">Gabriel</option>
+            </select>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label for="roomOwner">Idealizado por *</label>
-          <select id="roomOwner" required>
-            <option value="Marcella">Marcella</option>
-            <option value="Gabriel">Gabriel</option>
-            <option value="Ambos" selected>Ambos (Nós dois)</option>
-          </select>
+        <!-- Budget & Status -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-1">Orçamento Estimado (R$)</label>
+            <input type="number" id="roomBudget" step="0.01" min="0" placeholder="0.00" class="w-full px-3.5 py-2.5 text-sm bg-warm-50 border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 transition">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-1">Status do Ambiente</label>
+            <select id="roomStatus" class="w-full px-3.5 py-2.5 text-sm bg-warm-50 border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 transition">
+              <option value="Pendente">Pendente</option>
+              <option value="Em Andamento">Em Andamento</option>
+              <option value="Concluído">Concluído</option>
+            </select>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label for="roomImage">Link da Foto de Inspiração (URL)</label>
-          <input type="url" id="roomImage" placeholder="https://exemplo.com/minha-imagem.jpg">
-          <small class="form-hint">Dica: Clique com o botão direito numa imagem do Pinterest/Google e selecione "Copiar endereço da imagem".</small>
+        <!-- Image URL -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-1">URL da Imagem de Inspiração</label>
+          <input type="url" id="roomImage" placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2.5 text-sm bg-warm-50 border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 transition">
+          <p class="text-[11px] text-warm-800 opacity-60 mt-1">Cole um link de foto (Unsplash, Pinterest ou similar)</p>
         </div>
 
-        <div class="form-group">
-          <label for="roomStyle">Estilo / Vibe do Ambiente</label>
-          <input type="text" id="roomStyle" placeholder="Ex: Minimalista, Aconchegante, Industrial, Iluminação Quente...">
+        <!-- Checklist Items -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-1">Lista de Tarefas / Móveis (Separe por vírgula)</label>
+          <textarea id="roomTasks" rows="2" placeholder="Sofá retrátil, Pintura bege, Iluminação LED, Mesa lateral" class="w-full px-3.5 py-2.5 text-sm bg-warm-50 border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 transition custom-scrollbar"></textarea>
         </div>
 
-        <div class="form-group">
-          <label for="roomNotes">Visão e Detalhes Especiais</label>
-          <textarea id="roomNotes" rows="3" placeholder="Escreva o que não pode faltar: iluminação em LED, sofá retrátil cinza, plantas..."></textarea>
+        <!-- Notes -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-1">Observações / Ideias</label>
+          <textarea id="roomNotes" rows="2" placeholder="Paleta de cores quentes, tomar cuidado com a tomada atrás do sofá..." class="w-full px-3.5 py-2.5 text-sm bg-warm-50 border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 transition custom-scrollbar"></textarea>
         </div>
 
-        <div class="modal-actions">
-          <button type="button" class="btn-secondary" id="btnCancelModal">Cancelar</button>
-          <button type="submit" class="btn-primary">Salvar no Nosso Sonho</button>
+        <div class="flex justify-end space-x-3 pt-4 border-t border-warm-100">
+          <button type="button" onclick="closeRoomModal()" class="px-5 py-2.5 text-xs sm:text-sm font-medium text-warm-800 bg-warm-100 hover:bg-warm-200 rounded-xl transition">
+            Cancelar
+          </button>
+          <button type="submit" class="px-6 py-2.5 text-xs sm:text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 rounded-xl shadow-md transition">
+            Salvar Cômodo
+          </button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- MODAL: TROCAR CAPA -->
-  <div class="modal-backdrop" id="coverModal">
-    <div class="modal-card modal-small">
-      <div class="modal-header">
-        <h2>Alterar Foto de Capa</h2>
-        <button class="close-btn" id="btnCloseCoverModal">&times;</button>
+  <!-- MODAL: CHANGE COVER HERO IMAGE -->
+  <div id="coverModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 sm:p-8 transform transition-all border border-warm-200 relative">
+      <button onclick="closeCoverModal()" class="absolute top-5 right-5 text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-warm-50 transition">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="mb-6">
+        <h3 class="text-2xl font-serif-title font-bold text-warm-900">Personalizar Capa do Topo</h3>
+        <p class="text-xs text-warm-800 opacity-70 mt-1">Escolha uma imagem predefinida ou insira um link personalizado</p>
       </div>
-      
-      <form id="coverForm" class="modal-form">
-        <div class="form-group">
-          <label for="coverImageUrl">Link da Imagem (URL)</label>
-          <input type="url" id="coverImageUrl" placeholder="https://exemplo.com/foto-de-capa.jpg" required>
+
+      <!-- Presets -->
+      <div class="mb-5">
+        <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-2">Opções Elegantes Predefinidas</label>
+        <div class="grid grid-cols-3 gap-3">
+          <button onclick="selectPresetCover('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80')" class="h-20 rounded-xl overflow-hidden border-2 border-transparent hover:border-rose-500 focus:border-rose-500 transition group relative">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+          </button>
+          <button onclick="selectPresetCover('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=80')" class="h-20 rounded-xl overflow-hidden border-2 border-transparent hover:border-rose-500 focus:border-rose-500 transition group relative">
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+          </button>
+          <button onclick="selectPresetCover('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=80')" class="h-20 rounded-xl overflow-hidden border-2 border-transparent hover:border-rose-500 focus:border-rose-500 transition group relative">
+            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+          </button>
         </div>
-        
-        <div class="modal-actions">
-          <button type="button" class="btn-secondary" id="btnCancelCoverModal">Cancelar</button>
-          <button type="submit" class="btn-primary">Atualizar Capa</button>
+      </div>
+
+      <form onsubmit="saveCustomCover(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-1">Ou cole uma URL Personalizada</label>
+          <input type="url" id="coverUrlInput" placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2.5 text-sm bg-warm-50 border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 transition">
+        </div>
+
+        <div class="flex justify-end space-x-3 pt-4 border-t border-warm-100">
+          <button type="button" onclick="closeCoverModal()" class="px-5 py-2.5 text-xs sm:text-sm font-medium text-warm-800 bg-warm-100 hover:bg-warm-200 rounded-xl transition">
+            Cancelar
+          </button>
+          <button type="submit" class="px-6 py-2.5 text-xs sm:text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 rounded-xl shadow-md transition">
+            Aplicar Capa
+          </button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Script JS -->
-  <script src="script.js"></script>
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Initial Sample Data
+    const defaultRooms = [
+      {
+        id: '1',
+        name: 'Sala de Estar & Jantar',
+        responsable: 'Ambos',
+        budget: 12500,
+        status: 'Em Andamento',
+        image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
+        notes: 'Queremos uma iluminação bem aconchegante com tons neutros e madeira clara.',
+        tasks: [
+          { text: 'Sofá retrátil bege', completed: true },
+          { text: 'Painel de TV ripado', completed: false },
+          { text: 'Mesa de jantar 6 lugares', completed: true },
+          { text: 'Lustre pendente minimalista', completed: false }
+        ]
+      },
+      {
+        id: '2',
+        name: 'Quarto Principal',
+        responsable: 'Marcella',
+        budget: 8900,
+        status: 'Em Andamento',
+        image: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80',
+        notes: 'Cabeceira estofada até o teto com fita LED embutida.',
+        tasks: [
+          { text: 'Cama Queen tamanho padrão', completed: true },
+          { text: 'Mesas de cabeceira espelhadas', completed: false },
+          { text: 'Cortina blackout wave', completed: true },
+          { text: 'Enxoval tom rosé e marfim', completed: true }
+        ]
+      },
+      {
+        id: '3',
+        name: 'Cozinha Gourmet',
+        responsable: 'Gabriel',
+        budget: 15000,
+        status: 'Pendente',
+        image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80',
+        notes: 'Bancada em granito São Gabriel escovado e armários grafite.',
+        tasks: [
+          { text: 'Cooktop de indução', completed: false },
+          { text: 'Forno de embutir elétrico', completed: false },
+          { text: 'Depurador de ar slim', completed: false },
+          { text: 'Torneira monocomando preta', completed: true }
+        ]
+      },
+      {
+        id: '4',
+        name: 'Varanda Integrada',
+        responsable: 'Ambos',
+        budget: 4500,
+        status: 'Concluído',
+        image: 'https://images.unsplash.com/photo-1533779283484-8da492f161a4?auto=format&fit=crop&w=800&q=80',
+        notes: 'Cantinho do café e espaço verde com plantas suspensas.',
+        tasks: [
+          { text: 'Mesa bistrô com 2 cadeiras', completed: true },
+          { text: 'Vasos autoirrigáveis', completed: true },
+          { text: 'Nicho para cafeteira', completed: true }
+        ]
+      }
+    ];
+
+    // Global State Variables
+    let rooms = [];
+    let currentFilter = 'todos';
+    let currentCoverUrl = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+      
+      // Load saved state or set defaults
+      const savedRooms = localStorage.getItem('apartamento_sonhos_rooms');
+      if (savedRooms) {
+        try {
+          rooms = JSON.parse(savedRooms);
+        } catch (e) {
+          rooms = defaultRooms;
+        }
+      } else {
+        rooms = defaultRooms;
+      }
+
+      const savedCover = localStorage.getItem('apartamento_sonhos_cover');
+      if (savedCover) {
+        currentCoverUrl = savedCover;
+      }
+
+      updateCoverUI();
+      renderApp();
+    });
+
+    function saveState() {
+      localStorage.setItem('apartamento_sonhos_rooms', JSON.stringify(rooms));
+      localStorage.setItem('apartamento_sonhos_cover', currentCoverUrl);
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      
+      // Update Tab Styles
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-warm-900', 'shadow-sm', 'font-semibold');
+        btn.classList.add('text-warm-800', 'hover:text-warm-900');
+      });
+
+      const activeBtn = document.getElementById(`filter-${filter}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-white', 'text-warm-900', 'shadow-sm', 'font-semibold');
+        activeBtn.classList.remove('text-warm-800');
+      }
+
+      renderRooms();
+    }
+
+    function renderApp() {
+      renderStats();
+      renderRooms();
+      setFilter(currentFilter);
+    }
+
+    function renderStats() {
+      // Total Rooms
+      document.getElementById('statTotalRooms').textContent = rooms.length;
+
+      // Budget Calculation
+      const totalBudget = rooms.reduce((acc, curr) => acc + (parseFloat(curr.budget) || 0), 0);
+      document.getElementById('statTotalBudget').textContent = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      }).format(totalBudget);
+
+      // Tasks & Progress Calculation
+      let totalTasks = 0;
+      let completedTasks = 0;
+
+      rooms.forEach(room => {
+        if (room.tasks && room.tasks.length > 0) {
+          totalTasks += room.tasks.length;
+          completedTasks += room.tasks.filter(t => t.completed).length;
+        }
+      });
+
+      const percentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+      document.getElementById('statProgressPercent').textContent = `${percentage}%`;
+      document.getElementById('statProgressBar').style.width = `${percentage}%`;
+      document.getElementById('statProgressText').textContent = `${completedTasks} de ${totalTasks} tarefas/itens concluídos`;
+    }
+
+    function renderRooms() {
+      const grid = document.getElementById('roomsGrid');
+      const emptyState = document.getElementById('emptyState');
+      grid.innerHTML = '';
+
+      const filteredRooms = rooms.filter(room => {
+        if (currentFilter === 'todos') return true;
+        return room.responsable === currentFilter;
+      });
+
+      if (filteredRooms.length === 0) {
+        emptyState.classList.remove('hidden');
+        return;
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      filteredRooms.forEach(room => {
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-2xl shadow-md border border-warm-200/80 overflow-hidden flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1";
+
+        // Badge styling for Responsavel
+        let respBadge = '';
+        if (room.responsable === 'Marcella') {
+          respBadge = `<span class="bg-rose-100 text-rose-700 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1"><i class="fa-solid fa-heart text-[10px]"></i> Marcella</span>`;
+        } else if (room.responsable === 'Gabriel') {
+          respBadge = `<span class="bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1"><i class="fa-solid fa-user text-[10px]"></i> Gabriel</span>`;
+        } else {
+          respBadge = `<span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1"><i class="fa-solid fa-gem text-[10px]"></i> Ambos</span>`;
+        }
+
+        // Badge styling for Status
+        let statusBadge = '';
+        if (room.status === 'Concluído') {
+          statusBadge = `<span class="bg-sage-100 text-sage-700 text-[11px] font-medium px-2 py-0.5 rounded-md">Concluído</span>`;
+        } else if (room.status === 'Em Andamento') {
+          statusBadge = `<span class="bg-amber-50 text-amber-700 text-[11px] font-medium px-2 py-0.5 rounded-md">Em Andamento</span>`;
+        } else {
+          statusBadge = `<span class="bg-gray-100 text-gray-600 text-[11px] font-medium px-2 py-0.5 rounded-md">Pendente</span>`;
+        }
+
+        // Render checklist items
+        let tasksHtml = '';
+        if (room.tasks && room.tasks.length > 0) {
+          tasksHtml = room.tasks.map((task, idx) => `
+            <label class="flex items-start space-x-2 text-xs text-warm-900 cursor-pointer group py-1 border-b border-warm-100/60 last:border-0">
+              <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask('${room.id}', ${idx})" class="mt-0.5 rounded text-rose-600 focus:ring-rose-400 border-warm-300">
+              <span class="${task.completed ? 'line-through opacity-50' : 'group-hover:text-rose-600'} transition">${escapeHtml(task.text)}</span>
+            </label>
+          `).join('');
+        } else {
+          tasksHtml = `<p class="text-xs text-warm-800 opacity-50 italic">Nenhuma tarefa adicionada.</p>`;
+        }
+
+        const formattedBudget = new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL'
+        }).format(room.budget || 0);
+
+        card.innerHTML = `
+          <!-- Image Banner -->
+          <div class="relative h-48 w-full overflow-hidden bg-warm-100 group">
+            <img src="${room.image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'}" 
+                 alt="${escapeHtml(room.name)}" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                 onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            
+            <div class="absolute top-3 left-3">
+              ${respBadge}
+            </div>
+
+            <div class="absolute top-3 right-3 flex items-center space-x-1">
+              <button onclick="editRoom('${room.id}')" class="bg-white/80 hover:bg-white text-warm-900 p-2 rounded-full backdrop-blur-md shadow-md transition text-xs" title="Editar">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button onclick="deleteRoom('${room.id}')" class="bg-white/80 hover:bg-rose-600 hover:text-white text-warm-900 p-2 rounded-full backdrop-blur-md shadow-md transition text-xs" title="Excluir">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+
+            <div class="absolute bottom-3 left-3 right-3 flex justify-between items-end text-white">
+              <h3 class="font-serif-title text-xl font-bold text-shadow">${escapeHtml(room.name)}</h3>
+              ${statusBadge}
+            </div>
+          </div>
+
+          <!-- Content Body -->
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            
+            <!-- Notes -->
+            ${room.notes ? `
+              <div class="bg-warm-50/80 p-3 rounded-xl border border-warm-200/60 text-xs text-warm-800">
+                <p class="font-semibold text-warm-900 mb-0.5"><i class="fa-solid fa-sticky-note text-amber-500 mr-1"></i> Observações:</p>
+                <p class="opacity-80 italic line-clamp-2">${escapeHtml(room.notes)}</p>
+              </div>
+            ` : ''}
+
+            <!-- Checklist -->
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-wider text-warm-800 opacity-70 mb-2 flex justify-between items-center">
+                <span>Lista de Ideias</span>
+                <span class="text-[10px] font-normal opacity-80">
+                  ${room.tasks ? room.tasks.filter(t => t.completed).length : 0}/${room.tasks ? room.tasks.length : 0} concluídos
+                </span>
+              </p>
+              <div class="space-y-0.5 max-h-36 overflow-y-auto custom-scrollbar pr-1">
+                ${tasksHtml}
+              </div>
+            </div>
+
+            <!-- Footer info -->
+            <div class="pt-3 border-t border-warm-100 flex items-center justify-between text-xs">
+              <span class="text-warm-800 opacity-75">Orçamento Estimado:</span>
+              <span class="font-bold font-serif-title text-warm-900 text-sm">${formattedBudget}</span>
+            </div>
+
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    // Helper functions
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    function toggleTask(roomId, taskIndex) {
+      const room = rooms.find(r => r.id === roomId);
+      if (room && room.tasks && room.tasks[taskIndex] !== undefined) {
+        room.tasks[taskIndex].completed = !room.tasks[taskIndex].completed;
+        saveState();
+        renderApp();
+      }
+    }
+
+    function openRoomModal(roomId = null) {
+      const modal = document.getElementById('roomModal');
+      const form = document.getElementById('roomForm');
+      form.reset();
+
+      if (roomId) {
+        const room = rooms.find(r => r.id === roomId);
+        if (room) {
+          document.getElementById('modalRoomTitle').textContent = 'Editar Cômodo';
+          document.getElementById('roomId').value = room.id;
+          document.getElementById('roomName').value = room.name;
+          document.getElementById('roomResponsable').value = room.responsable;
+          document.getElementById('roomBudget').value = room.budget || '';
+          document.getElementById('roomStatus').value = room.status || 'Pendente';
+          document.getElementById('roomImage').value = room.image || '';
+          document.getElementById('roomNotes').value = room.notes || '';
+          document.getElementById('roomTasks').value = room.tasks ? room.tasks.map(t => t.text).join(', ') : '';
+        }
+      } else {
+        document.getElementById('modalRoomTitle').textContent = 'Adicionar Novo Cômodo';
+        document.getElementById('roomId').value = '';
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeRoomModal() {
+      document.getElementById('roomModal').classList.add('hidden');
+    }
+
+    function saveRoom(e) {
+      e.preventDefault();
+      
+      const id = document.getElementById('roomId').value;
+      const name = document.getElementById('roomName').value.trim();
+      const responsable = document.getElementById('roomResponsable').value;
+      const budget = parseFloat(document.getElementById('roomBudget').value) || 0;
+      const status = document.getElementById('roomStatus').value;
+      const image = document.getElementById('roomImage').value.trim();
+      const notes = document.getElementById('roomNotes').value.trim();
+      const tasksRaw = document.getElementById('roomTasks').value.trim();
+
+      let tasks = [];
+      if (tasksRaw) {
+        tasks = tasksRaw.split(',').map(item => item.trim()).filter(item => item.length > 0).map(text => ({
+          text: text,
+          completed: false
+        }));
+      }
+
+      if (id) {
+        // Edit existing
+        const index = rooms.findIndex(r => r.id === id);
+        if (index !== -1) {
+          // Keep completed state for existing items if names match
+          const oldTasks = rooms[index].tasks || [];
+          tasks = tasks.map(newTask => {
+            const match = oldTasks.find(ot => ot.text.toLowerCase() === newTask.text.toLowerCase());
+            return match ? { text: newTask.text, completed: match.completed } : newTask;
+          });
+
+          rooms[index] = {
+            ...rooms[index],
+            name,
+            responsable,
+            budget,
+            status,
+            image: image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+            notes,
+            tasks
+          };
+        }
+      } else {
+        // Create new
+        const newRoom = {
+          id: Date.now().toString(),
+          name,
+          responsable,
+          budget,
+          status,
+          image: image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+          notes,
+          tasks
+        };
+        rooms.push(newRoom);
+      }
+
+      saveState();
+      closeRoomModal();
+      renderApp();
+    }
+
+    function editRoom(id) {
+      openRoomModal(id);
+    }
+
+    function deleteRoom(id) {
+      if (window.confirm("Tem certeza de que deseja remover este ambiente?")) {
+        rooms = rooms.filter(r => r.id !== id);
+        saveState();
+        renderApp();
+      }
+    }
+
+    // Cover Image Modal logic
+    function openCoverModal() {
+      document.getElementById('coverModal').classList.remove('hidden');
+      document.getElementById('coverUrlInput').value = currentCoverUrl;
+    }
+
+    function closeCoverModal() {
+      document.getElementById('coverModal').classList.add('hidden');
+    }
+
+    function selectPresetCover(url) {
+      currentCoverUrl = url;
+      updateCoverUI();
+      saveState();
+      closeCoverModal();
+    }
+
+    function saveCustomCover(e) {
+      e.preventDefault();
+      const url = document.getElementById('coverUrlInput').value.trim();
+      if (url) {
+        currentCoverUrl = url;
+        updateCoverUI();
+        saveState();
+      }
+      closeCoverModal();
+    }
+
+    function updateCoverUI() {
+      const heroImg = document.getElementById('heroCoverImage');
+      if (heroImg) {
+        heroImg.src = currentCoverUrl;
+      }
+    }
+  </script>
 </body>
 </html>
