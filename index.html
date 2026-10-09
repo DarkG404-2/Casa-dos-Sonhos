@@ -198,6 +198,7 @@
       color: #f8f5f0 !important;
       box-shadow: none !important;
     }
+
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-rose-200 selection:text-rose-900">
@@ -398,11 +399,17 @@
         </div>
 
         <!-- Image URL -->
-        <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-1">URL da Imagem de Inspiração</label>
-          <input type="url" id="roomImage" placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2.5 text-sm bg-warm-50 border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 transition">
-          <p class="text-[11px] text-warm-800 opacity-60 mt-1">Cole um link de foto (Unsplash, Pinterest ou similar)</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-1">Foto de Referência - Marcella</label>
+            <input type="url" id="roomImageMarcella" placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2.5 text-sm bg-warm-50 border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 transition">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-warm-800 mb-1">Foto de Referência - Gabriel</label>
+            <input type="url" id="roomImageGabriel" placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2.5 text-sm bg-warm-50 border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 transition">
+          </div>
         </div>
+        <p class="text-[11px] text-warm-800 opacity-60 mt-1">Cole um link de foto (Unsplash, Pinterest ou similar) para cada pessoa.</p>
 
         <!-- Checklist Items -->
         <div>
@@ -484,6 +491,10 @@
         responsable: 'Ambos',
         status: 'Em Andamento',
         image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
+        images: {
+          Marcella: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80',
+          Gabriel: 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80'
+        },
         notes: 'Queremos uma iluminação bem aconchegante com tons neutros e madeira clara.',
         tasks: [
           { text: 'Sofá retrátil bege', completed: true },
@@ -498,6 +509,10 @@
         responsable: 'Marcella',
         status: 'Em Andamento',
         image: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80',
+        images: {
+          Marcella: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80',
+          Gabriel: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80'
+        },
         notes: 'Cabeceira estofada até o teto com fita LED embutida.',
         tasks: [
           { text: 'Cama Queen tamanho padrão', completed: true },
@@ -512,6 +527,10 @@
         responsable: 'Gabriel',
         status: 'Pendente',
         image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80',
+        images: {
+          Marcella: 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80',
+          Gabriel: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80'
+        },
         notes: 'Bancada em granito São Gabriel escovado e armários grafite.',
         tasks: [
           { text: 'Cooktop de indução', completed: false },
@@ -526,6 +545,10 @@
         responsable: 'Ambos',
         status: 'Concluído',
         image: 'https://images.unsplash.com/photo-1533779283484-8da492f161a4?auto=format&fit=crop&w=800&q=80',
+        images: {
+          Marcella: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
+          Gabriel: 'https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=800&q=80'
+        },
         notes: 'Cantinho do café e espaço verde com plantas suspensas.',
         tasks: [
           { text: 'Mesa bistrô com 2 cadeiras', completed: true },
@@ -614,6 +637,19 @@
       document.getElementById('statProgressText').textContent = `${completedTasks} de ${totalTasks} tarefas/itens concluídos`;
     }
 
+    function getRoomImage(room) {
+      if (room.responsable === 'Marcella' && room.images && room.images.Marcella) {
+        return room.images.Marcella;
+      }
+      if (room.responsable === 'Gabriel' && room.images && room.images.Gabriel) {
+        return room.images.Gabriel;
+      }
+      if (room.images && room.images.Ambos) {
+        return room.images.Ambos;
+      }
+      return room.image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80';
+    }
+
     function renderRooms() {
       const grid = document.getElementById('roomsGrid');
       const emptyState = document.getElementById('emptyState');
@@ -634,6 +670,7 @@
       filteredRooms.forEach(room => {
         const card = document.createElement('div');
         card.className = "bg-white rounded-2xl shadow-md border border-warm-200/80 overflow-hidden flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1";
+        const roomImage = getRoomImage(room);
 
         // Badge styling for Responsavel
         let respBadge = '';
@@ -671,7 +708,7 @@
         card.innerHTML = `
           <!-- Image Banner -->
           <div class="relative h-48 w-full overflow-hidden bg-warm-100 group">
-            <img src="${room.image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'}" 
+            <img src="${roomImage}" 
                  alt="${escapeHtml(room.name)}" 
                  class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                  onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'">
@@ -755,13 +792,16 @@
           document.getElementById('roomName').value = room.name;
           document.getElementById('roomResponsable').value = room.responsable;
           document.getElementById('roomStatus').value = room.status || 'Pendente';
-          document.getElementById('roomImage').value = room.image || '';
+          document.getElementById('roomImageMarcella').value = room.images?.Marcella || room.image || '';
+          document.getElementById('roomImageGabriel').value = room.images?.Gabriel || room.image || '';
           document.getElementById('roomNotes').value = room.notes || '';
           document.getElementById('roomTasks').value = room.tasks ? room.tasks.map(t => t.text).join(', ') : '';
         }
       } else {
         document.getElementById('modalRoomTitle').textContent = 'Adicionar Novo Cômodo';
         document.getElementById('roomId').value = '';
+        document.getElementById('roomImageMarcella').value = '';
+        document.getElementById('roomImageGabriel').value = '';
       }
 
       modal.classList.remove('hidden');
@@ -778,7 +818,9 @@
       const name = document.getElementById('roomName').value.trim();
       const responsable = document.getElementById('roomResponsable').value;
       const status = document.getElementById('roomStatus').value;
-      const image = document.getElementById('roomImage').value.trim();
+      const imageMarcella = document.getElementById('roomImageMarcella').value.trim();
+      const imageGabriel = document.getElementById('roomImageGabriel').value.trim();
+      const fallbackImage = imageMarcella || imageGabriel || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80';
       const notes = document.getElementById('roomNotes').value.trim();
       const tasksRaw = document.getElementById('roomTasks').value.trim();
 
@@ -806,7 +848,12 @@
             name,
             responsable,
             status,
-            image: image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+            image: fallbackImage,
+            images: {
+              ...(rooms[index].images || {}),
+              Marcella: imageMarcella || rooms[index].images?.Marcella || fallbackImage,
+              Gabriel: imageGabriel || rooms[index].images?.Gabriel || fallbackImage
+            },
             notes,
             tasks
           };
@@ -818,7 +865,11 @@
           name,
           responsable,
           status,
-          image: image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+          image: fallbackImage,
+          images: {
+            Marcella: imageMarcella || fallbackImage,
+            Gabriel: imageGabriel || fallbackImage
+          },
           notes,
           tasks
         };
