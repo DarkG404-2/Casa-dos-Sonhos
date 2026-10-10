@@ -1,1036 +1,1156 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosso Apartamento dos Sonhos ♥ | Marcella & Gabriel</title>
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
-    
-    <!-- Lucide Icons CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Canvas Confetti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nosso Apartamento dos Sonhos ♥ | Marcella & Gabriel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #090c13;
+      --bg-card: #121622;
+      --bg-sidebar: #0b0e17;
+      --bg-input: #171c2b;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-focus: #e879f9;
+      --pink-main: #d946ef;
+      --pink-gradient: linear-gradient(135deg, #ec4899, #c084fc);
+      --pink-btn: #d94689;
+      --pink-btn-hover: #c03a75;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-sub: #6b7280;
+      --marcella-color: #f472b6;
+      --gabriel-color: #60a5fa;
+      --radius-lg: 14px;
+      --radius-md: 8px;
+    }
 
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                        cursive: ['Caveat', 'cursive'],
-                    },
-                    colors: {
-                        app: {
-                            bg: '#080a10',
-                            sidebar: '#0d111d',
-                            panel: '#121726',
-                            card: '#161c2e',
-                            border: 'rgba(236, 72, 153, 0.12)',
-                            hover: '#1e263d',
-                            input: '#0b0e17'
-                        },
-                        brand: {
-                            pink: '#f43f5e',
-                            rose: '#fb7185',
-                            softPink: '#f472b6',
-                            purple: '#c084fc',
-                            marcella: '#f472b6',
-                            gabriel: '#60a5fa'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Outfit', sans-serif;
+    }
 
-    <style>
-        body {
-            background-color: #080a10;
-            color: #e2e8f0;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-        .cursive-quote {
-            font-family: 'Caveat', cursive;
-        }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f293d;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #080a10;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(244, 63, 94, 0.25);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(244, 63, 94, 0.5);
-        }
+    /* ------------------- COLUNA 1: SIDEBAR ------------------- */
+    aside.sidebar {
+      width: 250px;
+      background-color: var(--bg-sidebar);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 16px;
+      flex-shrink: 0;
+      z-index: 10;
+    }
 
-        .custom-border {
-            border: 1px solid rgba(255, 255, 255, 0.07);
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding-left: 6px;
+    }
 
-        .active-sidebar-item {
-            background: linear-gradient(90deg, rgba(244, 63, 94, 0.18) 0%, rgba(244, 63, 94, 0.05) 100%);
-            border-left: 3px solid #f43f5e;
-            color: #ffffff;
-        }
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(236, 72, 153, 0.15);
+      border: 1px solid rgba(236, 72, 153, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f472b6;
+      font-size: 20px;
+    }
 
-        .active-sidebar-item i {
-            color: #fb7185;
-        }
+    .brand-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
 
-        /* Image hover zoom effect */
-        .room-img-container {
-            overflow: hidden;
-            border-radius: 0.75rem;
-        }
-        .room-img-container img {
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .room-img-container:hover img {
-            transform: scale(1.06);
-        }
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
 
-        .line-clamp-1 {
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-    </style>
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: #ffffff;
+    }
+
+    .nav-item.active {
+      background: rgba(217, 70, 137, 0.18);
+      color: #f472b6;
+      font-weight: 600;
+    }
+
+    .sidebar-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sidebar-quote-box {
+      text-align: center;
+      padding: 0 8px;
+    }
+
+    .sidebar-quote-heart {
+      color: #f472b6;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-quote-text {
+      font-family: 'Caveat', cursive;
+      font-size: 16px;
+      color: #d1d5db;
+      line-height: 1.3;
+      font-style: italic;
+    }
+
+    .sidebar-window-img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      opacity: 0.85;
+      border: 1px solid var(--border-color);
+    }
+
+    /* ------------------- COLUNA 2: ÁREA CENTRAL ------------------- */
+    main.main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 28px 32px;
+    }
+
+    .top-slogan-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 8px;
+    }
+
+    .slogan-text {
+      font-family: 'Caveat', cursive;
+      font-size: 20px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 24px;
+    }
+
+    .header-left h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-left p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      width: 220px;
+    }
+
+    .search-input-wrapper input {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      padding: 8px 12px 8px 34px;
+      border-radius: 20px;
+      color: var(--text-main);
+      font-size: 12px;
+      outline: none;
+    }
+
+    .search-input-wrapper input:focus {
+      border-color: rgba(244, 114, 182, 0.4);
+    }
+
+    .search-icon-inside {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-sub);
+      font-size: 12px;
+    }
+
+    .btn-novo-comodo {
+      background: var(--pink-btn);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+
+    .btn-novo-comodo:hover {
+      background: var(--pink-btn-hover);
+    }
+
+    /* GRID DOS CARDS DE CÔMODOS */
+    .comodos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 20px;
+    }
+
+    .comodo-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .comodo-card:hover {
+      border-color: rgba(244, 114, 182, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .card-top-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title-group .icon {
+      font-size: 16px;
+    }
+
+    .card-title-group .name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .card-actions-icons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      cursor: pointer;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .icon-btn:hover {
+      color: #ffffff;
+    }
+
+    .icon-btn.delete:hover {
+      color: #ef4444;
+    }
+
+    /* Imagens Lado a Lado (Marcella & Gabriel) */
+    .dual-images-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .person-img-box {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .img-frame {
+      width: 100%;
+      height: 140px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #0d111a;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .img-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .person-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .person-tag .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .person-tag.marcella .dot { background: var(--marcella-color); }
+    .person-tag.gabriel .dot { background: var(--gabriel-color); }
+
+    .card-romantic-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+
+    .card-romantic-note span.heart {
+      color: #f472b6;
+      font-size: 12px;
+    }
+
+    .card-footer-link {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .ver-detalhes-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 11px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .ver-detalhes-btn:hover {
+      color: #f472b6;
+    }
+
+    /* ------------------- COLUNA 3: PAINEL LATERAL DE EDIÇÃO ------------------- */
+    aside.editor-panel {
+      width: 320px;
+      background-color: var(--bg-sidebar);
+      border-left: 1px solid var(--border-color);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      padding: 9px 12px;
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-size: 12.5px;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: rgba(244, 114, 182, 0.5);
+    }
+
+    select.form-control {
+      cursor: pointer;
+    }
+
+    textarea.form-control {
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    .upload-btn-outline {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px;
+      border-radius: var(--radius-md);
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 6px;
+      transition: background 0.2s;
+    }
+
+    .upload-btn-outline:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .status-pill-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+    }
+
+    .status-pill-option {
+      position: relative;
+    }
+
+    .status-pill-option input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .status-pill-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 8px 4px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      font-size: 10.5px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .status-pill-option input:checked + .status-pill-label {
+      border-color: #f472b6;
+      background: rgba(244, 114, 182, 0.15);
+      color: #ffffff;
+    }
+
+    .btn-salvar-comodo {
+      width: 100%;
+      background: var(--pink-btn);
+      color: white;
+      border: none;
+      padding: 11px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+
+    .btn-salvar-comodo:hover {
+      background: var(--pink-btn-hover);
+    }
+
+    /* OUTRAS ABAS ESCONDIDAS POR PADRÃO */
+    .tab-view-container {
+      display: none;
+      width: 100%;
+    }
+
+    .tab-view-container.active {
+      display: block;
+    }
+
+    .simple-card-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+
+    .task-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col text-slate-200 antialiased selection:bg-rose-500 selection:text-white">
+<body>
 
-    <!-- APP HEADER BAR -->
-    <header class="bg-[#0b0f19]/90 backdrop-blur-md border-b border-rose-500/10 sticky top-0 z-40 px-4 lg:px-8 py-3.5 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 to-pink-600 p-0.5 flex items-center justify-center shadow-lg shadow-rose-500/20">
-                <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                    <i data-lucide="home" class="w-5 h-5 text-rose-400"></i>
-                </div>
-            </div>
-            <div>
-                <h1 class="font-serif text-lg sm:text-xl font-bold bg-gradient-to-r from-pink-200 via-rose-100 to-slate-100 bg-clip-text text-transparent flex items-center gap-2">
-                    Nosso Apartamento dos Sonhos
-                    <i data-lucide="heart" class="w-4 h-4 text-rose-500 fill-rose-500 inline"></i>
-                </h1>
-                <p class="text-xs text-slate-400 font-light">Marcella & Gabriel</p>
-            </div>
+  <!-- ---------------- COLUNA 1: SIDEBAR ---------------- -->
+  <aside class="sidebar">
+    <div>
+      <div class="brand">
+        <div class="brand-icon">🏠</div>
+        <div>
+          <div class="brand-title">Nosso Apartamento dos Sonhos</div>
+          <div class="brand-subtitle">Marcella & Gabriel</div>
         </div>
+      </div>
 
-        <div class="hidden md:flex items-center gap-2">
-            <span class="cursive-quote text-xl text-rose-200/80 tracking-wide">Planejando hoje, o nosso amanhã... ♡</span>
-        </div>
-    </header>
-
-    <!-- BANNER DE CAPA PERSONALIZÁVEL -->
-    <section class="relative w-full h-44 sm:h-56 lg:h-64 bg-slate-950 overflow-hidden group border-b border-rose-500/10">
-        <img id="app-cover-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=80" alt="Foto de Capa do Apartamento" class="w-full h-full object-cover opacity-60 group-hover:opacity-75 transition duration-700">
-        <div class="absolute inset-0 bg-gradient-to-t from-[#080a10] via-[#080a10]/40 to-transparent"></div>
-        
-        <div class="absolute bottom-4 left-4 sm:left-8 right-4 flex items-end justify-between">
-            <div>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-rose-500/20 border border-rose-500/30 text-rose-300 backdrop-blur-md mb-2">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Nosso Lar em Construção
-                </span>
-                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-white drop-shadow-md">
-                    O cantinho que estamos criando com amor
-                </h2>
-            </div>
-
-            <!-- Botão Alterar Capa -->
-            <button onclick="openCoverModal()" class="px-3.5 py-2 rounded-xl bg-slate-900/80 hover:bg-rose-600/80 text-white backdrop-blur-md border border-white/10 text-xs font-medium transition flex items-center gap-2 shadow-lg">
-                <i data-lucide="camera" class="w-4 h-4"></i>
-                <span class="hidden sm:inline">Alterar Capa</span>
-            </button>
-        </div>
-    </section>
-
-    <!-- MAIN CONTAINER WITH SIDEBAR & PANELS -->
-    <div class="flex-grow flex flex-col lg:flex-row max-w-[1700px] w-full mx-auto">
-        
-        <!-- SIDEBAR ESQUERDA -->
-        <aside class="w-full lg:w-64 bg-[#0d111d] border-r border-slate-800/80 flex flex-col justify-between shrink-0">
-            <div class="p-4 space-y-6">
-                <!-- Navigation Menu -->
-                <nav class="space-y-1">
-                    <button onclick="switchTab('rooms')" id="nav-rooms" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 active-sidebar-item">
-                        <i data-lucide="home" class="w-4 h-4"></i>
-                        <span>Cômodos</span>
-                    </button>
-                    <button onclick="switchTab('tasks')" id="nav-tasks" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:text-slate-200 hover:bg-slate-800/50">
-                        <i data-lucide="check-square" class="w-4 h-4"></i>
-                        <span>Tarefas</span>
-                    </button>
-                    <button onclick="switchTab('notes')" id="nav-notes" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:text-slate-200 hover:bg-slate-800/50">
-                        <i data-lucide="message-square" class="w-4 h-4"></i>
-                        <span>Anotações</span>
-                    </button>
-                    <button onclick="switchTab('favorites')" id="nav-favorites" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:text-slate-200 hover:bg-slate-800/50">
-                        <i data-lucide="heart" class="w-4 h-4"></i>
-                        <span>Favoritos</span>
-                    </button>
-                    <button onclick="switchTab('settings')" id="nav-settings" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:text-slate-200 hover:bg-slate-800/50">
-                        <i data-lucide="settings" class="w-4 h-4"></i>
-                        <span>Configurações</span>
-                    </button>
-                </nav>
-            </div>
-
-            <!-- Footer da Sidebar (Frase & Card Noturno de Aconchego) -->
-            <div class="p-4 space-y-4 border-t border-slate-800/60">
-                <div class="text-center px-2">
-                    <i data-lucide="heart" class="w-4 h-4 text-rose-500 fill-rose-500 mx-auto mb-2 opacity-80"></i>
-                    <p class="cursive-quote text-lg text-slate-300 leading-snug">
-                        "Não é só sobre um apartamento, é sobre o nosso futuro. ♡"
-                    </p>
-                </div>
-
-                <!-- Card de imagem acolhedora com luz quente -->
-                <div class="relative h-36 rounded-2xl overflow-hidden custom-border group">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80" alt="Visão Aconchegante Noturna" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0d111d] via-transparent to-transparent"></div>
-                    <div class="absolute bottom-2 left-3 right-3 text-[11px] text-rose-200/90 font-medium">
-                        Lar Doce Lar ✨
-                    </div>
-                </div>
-            </div>
-        </aside>
-
-        <!-- AREA CENTRAL DE CONTEÚDO (DIFERENTES ABAS) -->
-        <main class="flex-grow flex flex-col lg:flex-row bg-[#080a10]">
-            
-            <!-- TAB 1: CÔMODOS (PAINEL PRINCIPAL) -->
-            <div id="tab-rooms-content" class="flex-grow flex flex-col lg:flex-row w-full">
-                <!-- COLUNA DO MEIO: GRID DE CÔMODOS -->
-                <div class="flex-grow p-4 sm:p-6 lg:p-8 space-y-6">
-                    
-                    <!-- Header do Painel Central -->
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
-                        <div>
-                            <h2 class="font-serif text-2xl font-bold text-white flex items-center gap-2.5">
-                                <i data-lucide="home" class="w-6 h-6 text-rose-400"></i>
-                                <span>Cômodos</span>
-                            </h2>
-                            <p class="text-xs text-slate-400 mt-1">Aqui estão todos os ambientes do nosso apartamento.</p>
-                        </div>
-
-                        <div class="flex items-center gap-3">
-                            <!-- Search Bar -->
-                            <div class="relative flex-grow sm:w-60">
-                                <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-                                <input type="text" id="search-rooms" oninput="renderRooms()" placeholder="Buscar cômodo..." class="w-full bg-[#121726] border border-slate-700/60 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-rose-500/50 transition">
-                            </div>
-
-                            <!-- Botão + Novo Cômodo -->
-                            <button onclick="resetFormForNew()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-medium text-xs shadow-lg shadow-rose-500/20 transition flex items-center gap-2 whitespace-nowrap">
-                                <i data-lucide="plus" class="w-4 h-4"></i>
-                                <span>Novo Cômodo</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- GRID DE CARDS DE CÔMODOS (2/3 por linha) -->
-                    <div id="rooms-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Cards serão inseridos via JS aqui -->
-                    </div>
-
-                    <!-- ESTADO VAZIO -->
-                    <div id="empty-rooms" class="hidden bg-[#121726] rounded-2xl p-10 text-center border border-slate-800 max-w-md mx-auto my-12 space-y-3">
-                        <i data-lucide="sparkles" class="w-10 h-10 text-rose-400 mx-auto opacity-70"></i>
-                        <h3 class="font-serif text-lg font-semibold text-slate-200">Nenhum cômodo encontrado</h3>
-                        <p class="text-xs text-slate-400">Preencha o formulário ao lado para cadastrar um novo ambiente para Marcella & Gabriel.</p>
-                    </div>
-                </div>
-
-                <!-- COLUNA DIREITA: FORMULÁRIO DE ADICIONAR / EDITAR CÔMODO -->
-                <section class="w-full lg:w-96 bg-[#121726] border-l border-slate-800/80 p-6 flex flex-col justify-between shrink-0">
-                    <div class="space-y-5">
-                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                            <h3 id="form-panel-title" class="font-serif text-lg font-bold text-white flex items-center gap-2">
-                                <i data-lucide="plus" class="w-5 h-5 text-rose-400"></i>
-                                <span>Adicionar / Editar Cômodo</span>
-                            </h3>
-                        </div>
-
-                        <form id="room-form" onsubmit="handleRoomSave(event)" class="space-y-4">
-                            <input type="hidden" id="room-id">
-
-                            <!-- Nome do Cômodo -->
-                            <div class="space-y-1.5">
-                                <label class="text-xs font-medium text-slate-300">Nome do cômodo</label>
-                                <input type="text" id="room-name" required placeholder="Ex: Quarto" class="w-full bg-[#0b0e17] border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-rose-500/60 transition">
-                            </div>
-
-                            <!-- Seletor de Ícone -->
-                            <div class="space-y-1.5">
-                                <label class="text-xs font-medium text-slate-300">Ícone</label>
-                                <select id="room-icon" class="w-full bg-[#0b0e17] border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-rose-500/60 transition">
-                                    <option value="bed">🛏️ Cama (Quarto)</option>
-                                    <option value="sofa">🛋️ Sofá (Sala)</option>
-                                    <option value="utensils">🍳 Cozinha / Utensílios</option>
-                                    <option value="bath">🛁 Banheiro / Banheira</option>
-                                    <option value="flower-2">🪴 Varanda / Plantas</option>
-                                    <option value="laptop">💻 Computador / Escritório</option>
-                                    <option value="heart">♥ Coração / Especial</option>
-                                </select>
-                            </div>
-
-                            <!-- Referência da Marcella -->
-                            <div class="space-y-1.5 p-3 rounded-xl bg-pink-950/20 border border-pink-500/20">
-                                <div class="flex items-center justify-between">
-                                    <label class="text-xs font-semibold text-pink-300 flex items-center gap-1.5">
-                                        <i data-lucide="user" class="w-3.5 h-3.5 text-pink-400"></i> Referência da Marcella
-                                    </label>
-                                </div>
-                                <input type="url" id="room-ref-marcella" placeholder="Link da imagem (URL)" class="w-full bg-[#0b0e17] border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-pink-500/50 transition">
-                                <label class="w-full cursor-pointer px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 border border-slate-700/60 text-xs text-center flex items-center justify-center gap-2 transition">
-                                    <i data-lucide="upload" class="w-3.5 h-3.5 text-pink-400"></i> Escolher imagem
-                                    <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'room-ref-marcella')">
-                                </label>
-                            </div>
-
-                            <!-- Referência do Gabriel -->
-                            <div class="space-y-1.5 p-3 rounded-xl bg-blue-950/20 border border-blue-500/20">
-                                <div class="flex items-center justify-between">
-                                    <label class="text-xs font-semibold text-blue-300 flex items-center gap-1.5">
-                                        <i data-lucide="user" class="w-3.5 h-3.5 text-blue-400"></i> Referência do Gabriel
-                                    </label>
-                                </div>
-                                <input type="url" id="room-ref-gabriel" placeholder="Link da imagem (URL)" class="w-full bg-[#0b0e17] border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-blue-500/50 transition">
-                                <label class="w-full cursor-pointer px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 border border-slate-700/60 text-xs text-center flex items-center justify-center gap-2 transition">
-                                    <i data-lucide="upload" class="w-3.5 h-3.5 text-blue-400"></i> Escolher imagem
-                                    <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'room-ref-gabriel')">
-                                </label>
-                            </div>
-
-                            <!-- Descrição / Frase -->
-                            <div class="space-y-1.5">
-                                <label class="text-xs font-medium text-slate-300">Descrição</label>
-                                <textarea id="room-desc" rows="3" placeholder="Descreva o ambiente, ideias, detalhes..." class="w-full bg-[#0b0e17] border border-slate-800 rounded-xl p-3 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-rose-500/60 transition"></textarea>
-                            </div>
-
-                            <!-- Status do Cômodo -->
-                            <div class="space-y-1.5">
-                                <label class="text-xs font-medium text-slate-300">Status do cômodo</label>
-                                <div class="grid grid-cols-3 gap-2">
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="room-status-radio" value="Planejado" checked class="peer hidden">
-                                        <div class="px-2 py-2 rounded-xl border border-slate-800 bg-[#0b0e17] peer-checked:border-rose-500 peer-checked:bg-rose-500/10 text-[11px] text-slate-400 peer-checked:text-rose-300 text-center transition flex items-center justify-center gap-1">
-                                            <i data-lucide="circle" class="w-3 h-3"></i> Planejado
-                                        </div>
-                                    </label>
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="room-status-radio" value="Em andamento" class="peer hidden">
-                                        <div class="px-2 py-2 rounded-xl border border-slate-800 bg-[#0b0e17] peer-checked:border-amber-500 peer-checked:bg-amber-500/10 text-[11px] text-slate-400 peer-checked:text-amber-300 text-center transition flex items-center justify-center gap-1">
-                                            <i data-lucide="clock" class="w-3 h-3"></i> Andamento
-                                        </div>
-                                    </label>
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="room-status-radio" value="Concluído" class="peer hidden">
-                                        <div class="px-2 py-2 rounded-xl border border-slate-800 bg-[#0b0e17] peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10 text-[11px] text-slate-400 peer-checked:text-emerald-300 text-center transition flex items-center justify-center gap-1">
-                                            <i data-lucide="check" class="w-3 h-3"></i> Concluído
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- Submit Button -->
-                            <button type="submit" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-600 to-rose-600 hover:from-rose-600 hover:to-pink-700 text-white font-medium text-xs shadow-lg shadow-rose-500/25 transition flex items-center justify-center gap-2 mt-2">
-                                <i data-lucide="check" class="w-4 h-4"></i>
-                                <span id="btn-submit-text">Salvar Cômodo</span>
-                            </button>
-                        </form>
-                    </div>
-                </section>
-            </div>
-
-            <!-- TAB 2: TAREFAS -->
-            <div id="tab-tasks-content" class="hidden flex-grow p-6 lg:p-8 space-y-6 max-w-4xl">
-                <div class="border-b border-slate-800 pb-4">
-                    <h2 class="font-serif text-2xl font-bold text-white flex items-center gap-2">
-                        <i data-lucide="check-square" class="w-6 h-6 text-rose-400"></i> Checklist & Tarefas do Apê
-                    </h2>
-                    <p class="text-xs text-slate-400 mt-1">Acompanhe as metas, compras e reformas que precisamos fazer.</p>
-                </div>
-
-                <div class="flex items-center gap-3">
-                    <input type="text" id="new-task-text" placeholder="Adicionar nova tarefa para Marcella & Gabriel..." class="flex-grow bg-[#121726] border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-rose-500/60">
-                    <button onclick="addTask()" class="px-4 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-medium text-xs transition flex items-center gap-1.5">
-                        <i data-lucide="plus" class="w-4 h-4"></i> Adicionar
-                    </button>
-                </div>
-
-                <div id="tasks-list" class="space-y-2">
-                    <!-- Tasks renderizadas aqui -->
-                </div>
-            </div>
-
-            <!-- TAB 3: ANOTAÇÕES -->
-            <div id="tab-notes-content" class="hidden flex-grow p-6 lg:p-8 space-y-6 max-w-4xl">
-                <div class="border-b border-slate-800 pb-4">
-                    <h2 class="font-serif text-2xl font-bold text-white flex items-center gap-2">
-                        <i data-lucide="message-square" class="w-6 h-6 text-rose-400"></i> Anotações do Casal
-                    </h2>
-                    <p class="text-xs text-slate-400 mt-1">Guarde ideias de tintas, lojas, medidas e lembretes fofos.</p>
-                </div>
-
-                <div class="space-y-4">
-                    <textarea id="notepad-content" rows="12" placeholder="Escreva aqui tudo o que desejarem sobre o apartamento..." oninput="saveNotes()" class="w-full bg-[#121726] border border-slate-800 rounded-2xl p-4 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-rose-500/60 leading-relaxed"></textarea>
-                    <div class="flex justify-between items-center text-xs text-slate-500">
-                        <span>Salvo automaticamente no seu navegador.</span>
-                        <span id="notes-status" class="text-rose-400 font-medium">Sincronizado</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 4: FAVORITOS -->
-            <div id="tab-favorites-content" class="hidden flex-grow p-6 lg:p-8 space-y-6">
-                <div class="border-b border-slate-800 pb-4">
-                    <h2 class="font-serif text-2xl font-bold text-white flex items-center gap-2">
-                        <i data-lucide="heart" class="w-6 h-6 text-rose-400 fill-rose-400"></i> Meus Cômodos Favoritos
-                    </h2>
-                    <p class="text-xs text-slate-400 mt-1">Cômodos que foram marcados com carinho especial.</p>
-                </div>
-
-                <div id="favorites-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Favoritos JS -->
-                </div>
-            </div>
-
-            <!-- TAB 5: CONFIGURAÇÕES -->
-            <div id="tab-settings-content" class="hidden flex-grow p-6 lg:p-8 space-y-6 max-w-3xl">
-                <div class="border-b border-slate-800 pb-4">
-                    <h2 class="font-serif text-2xl font-bold text-white flex items-center gap-2">
-                        <i data-lucide="settings" class="w-6 h-6 text-rose-400"></i> Configurações & Dados
-                    </h2>
-                    <p class="text-xs text-slate-400 mt-1">Gerencie a capa e os dados salvos da sua aplicação.</p>
-                </div>
-
-                <div class="space-y-6">
-                    <div class="bg-[#121726] p-5 rounded-2xl border border-slate-800 space-y-3">
-                        <h3 class="text-sm font-bold text-slate-200">Restaurar Dados Demonstrativos</h3>
-                        <p class="text-xs text-slate-400">Reinicia os cômodos padrão exatamente como na imagem de referência.</p>
-                        <button onclick="restoreDefaultRooms()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-rose-300 border border-rose-500/30 text-xs font-medium transition">
-                            Restaurar Cômodos Iniciais
-                        </button>
-                    </div>
-
-                    <div class="bg-[#121726] p-5 rounded-2xl border border-slate-800 space-y-3">
-                        <h3 class="text-sm font-bold text-slate-200">Limpar Todos os Dados</h3>
-                        <p class="text-xs text-slate-400">Apaga permanentemente as alterações salvas no navegador.</p>
-                        <button onclick="clearAllData()" class="px-4 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 border border-rose-500/40 text-xs font-medium transition">
-                            Limpar Tudo
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </main>
+      <ul class="nav-list">
+        <li class="nav-item active" onclick="switchNavTab(this, 'comodos')">
+          <span>🏠</span> Cômodos
+        </li>
+        <li class="nav-item" onclick="switchNavTab(this, 'tarefas')">
+          <span>☑</span> Tarefas
+        </li>
+        <li class="nav-item" onclick="switchNavTab(this, 'anotacoes')">
+          <span>📝</span> Anotações
+        </li>
+        <li class="nav-item" onclick="switchNavTab(this, 'favoritos')">
+          <span>♥</span> Favoritos
+        </li>
+        <li class="nav-item" onclick="switchNavTab(this, 'configuracoes')">
+          <span>⚙</span> Configurações
+        </li>
+      </ul>
     </div>
 
-    <!-- MODAL DE ALTERAÇÃO DA CAPA -->
-    <div id="cover-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-[#121726] border border-rose-500/30 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h3 class="font-serif text-lg font-bold text-slate-100 flex items-center gap-2">
-                    <i data-lucide="camera" class="w-5 h-5 text-rose-400"></i> Alterar Capa do Apê
-                </h3>
-                <button onclick="closeCoverModal()" class="text-slate-400 hover:text-slate-100">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
-            </div>
+    <div class="sidebar-footer">
+      <div class="sidebar-quote-box">
+        <div class="sidebar-quote-heart">♥</div>
+        <p class="sidebar-quote-text">Não é só sobre um apartamento, é sobre o nosso futuro. ♡</p>
+      </div>
+      <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=400&q=80" alt="Janela Noturna Aconchegante" class="sidebar-window-img">
+    </div>
+  </aside>
 
-            <div class="space-y-3">
-                <div class="space-y-1.5">
-                    <label class="text-xs font-medium text-slate-300">Cole a URL da Imagem de Capa</label>
-                    <input type="url" id="cover-url-input" placeholder="https://..." class="w-full bg-[#0b0e17] border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-100 focus:outline-none focus:border-rose-500/60">
-                </div>
+  <!-- ---------------- COLUNA 2: CONTEÚDO PRINCIPAL ---------------- -->
+  <main class="main-content">
 
-                <div class="text-center text-xs text-slate-500">ou</div>
-
-                <label class="w-full cursor-pointer px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium flex items-center justify-center gap-2 transition">
-                    <i data-lucide="upload" class="w-4 h-4 text-rose-400"></i> Enviar Imagem do Computador
-                    <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'cover-url-input')">
-                </label>
-            </div>
-
-            <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
-                <button onclick="closeCoverModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-medium">Cancelar</button>
-                <button onclick="saveCoverImage()" class="px-4 py-2 rounded-xl bg-rose-500 text-white text-xs font-medium hover:bg-rose-600">Salvar Capa</button>
-            </div>
-        </div>
+    <!-- BARRA SUPERIOR COM SLOGAN CURSIVO -->
+    <div class="top-slogan-bar">
+      <div class="slogan-text">
+        Planejando hoje, o nosso amanhã... ♡
+      </div>
     </div>
 
-    <!-- MODAL DE DETALHES DO CÔMODO -->
-    <div id="detail-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-[#121726] border border-rose-500/30 rounded-3xl w-full max-w-2xl p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                <div class="flex items-center gap-2.5">
-                    <span id="detail-room-icon" class="text-xl"></span>
-                    <h3 id="detail-room-name" class="font-serif text-xl font-bold text-white"></h3>
-                </div>
-                <button onclick="closeDetailModal()" class="text-slate-400 hover:text-white">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-
-            <!-- Fotos Lado a Lado Ampliadas -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="space-y-2">
-                    <div class="h-56 rounded-2xl overflow-hidden bg-slate-950 border border-pink-500/20">
-                        <img id="detail-img-marcella" src="" class="w-full h-full object-cover">
-                    </div>
-                    <p class="text-xs font-semibold text-pink-300 text-center flex items-center justify-center gap-1">
-                        <i data-lucide="user" class="w-3.5 h-3.5"></i> Inspiração da Marcella
-                    </p>
-                </div>
-
-                <div class="space-y-2">
-                    <div class="h-56 rounded-2xl overflow-hidden bg-slate-950 border border-blue-500/20">
-                        <img id="detail-img-gabriel" src="" class="w-full h-full object-cover">
-                    </div>
-                    <p class="text-xs font-semibold text-blue-300 text-center flex items-center justify-center gap-1">
-                        <i data-lucide="user" class="w-3.5 h-3.5"></i> Inspiração do Gabriel
-                    </p>
-                </div>
-            </div>
-
-            <div class="p-4 rounded-2xl bg-[#0b0e17] border border-slate-800 space-y-2">
-                <h4 class="text-xs font-semibold text-rose-300 uppercase tracking-wider">Descrição & Visão do Casal</h4>
-                <p id="detail-desc" class="text-xs sm:text-sm text-slate-300 italic leading-relaxed"></p>
-            </div>
-
-            <div class="flex items-center justify-between pt-2">
-                <span id="detail-status-badge"></span>
-                <button onclick="closeDetailModal()" class="px-5 py-2 rounded-xl bg-slate-800 text-slate-200 text-xs font-medium hover:bg-slate-700">Fechar</button>
-            </div>
+    <!-- ABA 1: CÔMODOS (PADRÃO) -->
+    <div id="view-comodos" class="tab-view-container active">
+      <div class="page-header">
+        <div class="header-left">
+          <h1><span>🏠</span> Cômodos</h1>
+          <p>Aqui estão todos os ambientes do nosso apartamento.</p>
         </div>
+        <div class="header-actions">
+          <div class="search-input-wrapper">
+            <span class="search-icon-inside">🔍</span>
+            <input type="text" id="searchInput" placeholder="Buscar cômodo..." oninput="renderComodosGrid()">
+          </div>
+          <button class="btn-novo-comodo" onclick="resetFormToNew()">
+            <span>+</span> Novo Cômodo
+          </button>
+        </div>
+      </div>
+
+      <!-- GRID COM OS CARDS DE CÔMODOS -->
+      <div class="comodos-grid" id="comodosGrid">
+        <!-- Renderizado dinamicamente via JS -->
+      </div>
     </div>
 
-    <script>
-        // STORAGE KEYS
-        const ROOMS_KEY = 'ape_sonhos_rooms_v3';
-        const COVER_KEY = 'ape_sonhos_cover_v3';
-        const TASKS_KEY = 'ape_sonhos_tasks_v3';
-        const NOTES_KEY = 'ape_sonhos_notes_v3';
+    <!-- ABA 2: TAREFAS -->
+    <div id="view-tarefas" class="tab-view-container">
+      <h1 style="font-family:'Playfair Display'; margin-bottom: 16px;">☑ Tarefas do Casal</h1>
+      <div class="simple-card-box">
+        <div style="display:flex; gap:10px; margin-bottom:16px;">
+          <input type="text" id="newTaskInput" class="form-control" placeholder="Adicionar tarefa...">
+          <button class="btn-novo-comodo" onclick="addNewTask()">Adicionar</button>
+        </div>
+        <div id="taskListContainer"></div>
+      </div>
+    </div>
 
-        // DADOS DEMONSTRATIVOS IDÊNTICOS À IMAGEM
-        const DEFAULT_ROOMS = [
-            {
-                id: '1',
-                name: 'Quarto',
-                icon: 'bed',
-                refMarcella: 'https://images.unsplash.com/photo-1540518614846-7ede433c5163?auto=format&fit=crop&w=800&q=80',
-                refGabriel: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80',
-                desc: 'Nosso refúgio, nosso cantinho.',
-                status: 'Planejado',
-                favorite: true
-            },
-            {
-                id: '2',
-                name: 'Sala',
-                icon: 'sofa',
-                refMarcella: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80',
-                refGabriel: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-                desc: 'Filmes, risadas e muito amor.',
-                status: 'Em andamento',
-                favorite: true
-            },
-            {
-                id: '3',
-                name: 'Cozinha',
-                icon: 'utensils',
-                refMarcella: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80',
-                refGabriel: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=800&q=80',
-                desc: 'Boas refeições, melhores conversas.',
-                status: 'Planejado',
-                favorite: false
-            },
-            {
-                id: '4',
-                name: 'Banheiro',
-                icon: 'bath',
-                refMarcella: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80',
-                refGabriel: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=800&q=80',
-                desc: 'Começo e fim de dias incríveis.',
-                status: 'Concluído',
-                favorite: false
-            },
-            {
-                id: '5',
-                name: 'Varanda',
-                icon: 'flower-2',
-                refMarcella: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80',
-                refGabriel: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
-                desc: 'Um pouco de céu, muito de nós.',
-                status: 'Planejado',
-                favorite: true
-            },
-            {
-                id: '6',
-                name: 'Escritório',
-                icon: 'laptop',
-                refMarcella: 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=800&q=80',
-                refGabriel: 'https://images.unsplash.com/photo-1593062096033-9a26b09da705?auto=format&fit=crop&w=800&q=80',
-                desc: 'Juntos até nos sonhos em comum.',
-                status: 'Planejado',
-                favorite: false
-            }
-        ];
+    <!-- ABA 3: ANOTAÇÕES -->
+    <div id="view-anotacoes" class="tab-view-container">
+      <h1 style="font-family:'Playfair Display'; margin-bottom: 16px;">📝 Anotações & Recados</h1>
+      <div class="simple-card-box">
+        <textarea id="anotacoesArea" class="form-control" style="height:300px; line-height:1.6;" placeholder="Escreva aqui..." oninput="autoSaveNotes()"></textarea>
+      </div>
+    </div>
 
-        const DEFAULT_TASKS = [
-            { id: 't1', text: 'Decidir a paleta de cores da sala', done: true },
-            { id: 't2', text: 'Comprar o sofá de 3 lugares retrátil', done: true },
-            { id: 't3', text: 'Medir a parede do quarto para a cabeceira', done: false },
-            { id: 't4', text: 'Pesquisar torneiras pretas para o banheiro', done: false }
-        ];
+    <!-- ABA 4: FAVORITOS -->
+    <div id="view-favoritos" class="tab-view-container">
+      <h1 style="font-family:'Playfair Display'; margin-bottom: 16px;">♥ Cômodos Favoritos</h1>
+      <div class="comodos-grid" id="favoritosGrid"></div>
+    </div>
 
-        let rooms = [];
-        let tasks = [];
+    <!-- ABA 5: CONFIGURAÇÕES -->
+    <div id="view-configuracoes" class="tab-view-container">
+      <h1 style="font-family:'Playfair Display'; margin-bottom: 16px;">⚙ Configurações & Backup</h1>
+      <div class="simple-card-box" style="display:flex; flex-direction:column; gap:12px; max-width:300px;">
+        <button class="btn-novo-comodo" onclick="exportDataJSON()">📥 Baixar Backup JSON</button>
+        <button class="upload-btn-outline" onclick="document.getElementById('importFileInput').click()">📤 Importar Backup</button>
+        <input type="file" id="importFileInput" accept=".json" style="display:none;" onchange="importDataJSON(event)">
+        <button class="upload-btn-outline" style="color:#ef4444;" onclick="resetDefaultData()">⚠️ Restaurar Padrão</button>
+      </div>
+    </div>
 
-        window.addEventListener('DOMContentLoaded', () => {
-            initData();
-            lucide.createIcons();
-            renderRooms();
-            renderTasks();
-            loadNotes();
-            loadCoverImage();
+  </main>
+
+  <!-- ---------------- COLUNA 3: PAINEL LATERAL DE EDIÇÃO ---------------- -->
+  <aside class="editor-panel">
+    <div class="panel-header">
+      <span id="panelHeaderTitle">+ Adicionar / Editar Cômodo</span>
+    </div>
+
+    <form id="comodoEditorForm" onsubmit="saveComodoHandler(event)">
+      <input type="hidden" id="editComodoId">
+
+      <div class="form-group">
+        <label>Nome do cômodo</label>
+        <input type="text" id="inputNomeComodo" class="form-control" placeholder="Ex: Quarto" required>
+      </div>
+
+      <div class="form-group">
+        <label>Ícone</label>
+        <select id="selectIconeComodo" class="form-control">
+          <option value="🛏">🛏 Cama / Quarto</option>
+          <option value="🛋">🛋 Sofá / Sala</option>
+          <option value="🍳">🍳 Cozinha</option>
+          <option value="🚿">🚿 Banheiro</option>
+          <option value="🪴">🪴 Varanda</option>
+          <option value="🖥">🖥 Escritório</option>
+        </select>
+      </div>
+
+      <!-- Referência Marcella -->
+      <div class="form-group">
+        <label style="color: var(--marcella-color);">👤 Referência da Marcella</label>
+        <input type="url" id="inputUrlMarcella" class="form-control" placeholder="Link da imagem (URL)">
+        <input type="file" id="fileMarcella" accept="image/*" style="display:none;" onchange="handleFileSelected(event, 'inputUrlMarcella')">
+        <button type="button" class="upload-btn-outline" onclick="document.getElementById('fileMarcella').click()">
+          <span>⬆</span> Escolher imagem
+        </button>
+      </div>
+
+      <!-- Referência Gabriel -->
+      <div class="form-group">
+        <label style="color: var(--gabriel-color);">👤 Referência do Gabriel</label>
+        <input type="url" id="inputUrlGabriel" class="form-control" placeholder="Link da imagem (URL)">
+        <input type="file" id="fileGabriel" accept="image/*" style="display:none;" onchange="handleFileSelected(event, 'inputUrlGabriel')">
+        <button type="button" class="upload-btn-outline" onclick="document.getElementById('fileGabriel').click()">
+          <span>⬆</span> Escolher imagem
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label>Descrição</label>
+        <textarea id="inputDescricao" class="form-control" placeholder="Descreva o ambiente, ideias, detalhes..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Status do cômodo</label>
+        <div class="status-pill-group">
+          <div class="status-pill-option">
+            <input type="radio" id="stPlanejado" name="statusOption" value="Planejado" checked>
+            <label for="stPlanejado" class="status-pill-label"><span>◯</span> Planejado</label>
+          </div>
+          <div class="status-pill-option">
+            <input type="radio" id="stAndamento" name="statusOption" value="Em andamento">
+            <label for="stAndamento" class="status-pill-label"><span>⏱</span> Em andamento</label>
+          </div>
+          <div class="status-pill-option">
+            <input type="radio" id="stConcluido" name="statusOption" value="Concluído">
+            <label for="stConcluido" class="status-pill-label"><span>✓</span> Concluído</label>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-salvar-comodo">
+        <span>✓</span> Salvar Cômodo
+      </button>
+    </form>
+  </aside>
+
+  <!-- SCRIPT & ARMAZENAMENTO LOCAL -->
+  <script>
+    const STORAGE_KEY = 'casa_sonhos_db_v3';
+
+    // DADOS INICIAIS FIÉIS À IMAGEM DE REFERÊNCIA
+    const initialData = {
+      comodos: [
+        {
+          id: '1',
+          nome: 'Quarto',
+          icone: '🛏',
+          imgMarcella: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=600&q=80',
+          imgGabriel: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=80',
+          desc: 'Nosso refúgio, nosso cantinho.',
+          status: 'Planejado',
+          favorito: true
+        },
+        {
+          id: '2',
+          nome: 'Sala',
+          icone: '🛋',
+          imgMarcella: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80',
+          imgGabriel: 'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=600&q=80',
+          desc: 'Filmes, risadas e muito amor.',
+          status: 'Planejado',
+          favorito: false
+        },
+        {
+          id: '3',
+          nome: 'Cozinha',
+          icone: '🍳',
+          imgMarcella: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80',
+          imgGabriel: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=600&q=80',
+          desc: 'Boas refeições, melhores conversas.',
+          status: 'Planejado',
+          favorito: false
+        },
+        {
+          id: '4',
+          nome: 'Banheiro',
+          icone: '🚿',
+          imgMarcella: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80',
+          imgGabriel: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=600&q=80',
+          desc: 'Começo e fim de dias incríveis.',
+          status: 'Planejado',
+          favorito: false
+        },
+        {
+          id: '5',
+          nome: 'Varanda',
+          icone: '🪴',
+          imgMarcella: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80',
+          imgGabriel: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80',
+          desc: 'Um pouco de céu, muito de nós.',
+          status: 'Planejado',
+          favorito: true
+        },
+        {
+          id: '6',
+          nome: 'Escritório',
+          icone: '🖥',
+          imgMarcella: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=600&q=80',
+          imgGabriel: 'https://images.unsplash.com/photo-1593062096033-9a26b09da705?auto=format&fit=crop&w=600&q=80',
+          desc: 'Juntos até nos sonhos em comum.',
+          status: 'Planejado',
+          favorito: false
+        }
+      ],
+      tarefas: [
+        { id: '1', text: 'Medir a parede da TV na sala', done: true },
+        { id: '2', text: 'Escolher tom de tinta para o quarto principal', done: false }
+      ],
+      anotacoes: 'Nosso cantinho dos sonhos! ♥\nLembrar de olhar torneiras em preto fosco para a cozinha.'
+    };
+
+    let db = loadDatabase();
+
+    function loadDatabase() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) return JSON.parse(saved);
+      } catch(e) {
+        console.warn('LocalStorage inacessível, usando memória:', e);
+      }
+      return initialData;
+    }
+
+    function saveDatabase() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+      } catch(e) {
+        console.warn('Erro ao salvar no LocalStorage:', e);
+      }
+    }
+
+    // CARREGAMENTO INICIAL
+    document.addEventListener('DOMContentLoaded', () => {
+      renderComodosGrid();
+      renderTasksList();
+      document.getElementById('anotacoesArea').value = db.anotacoes || '';
+    });
+
+    // NAVEGAÇÃO DE ABAS
+    function switchNavTab(el, tabName) {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      document.querySelectorAll('.tab-view-container').forEach(v => v.classList.remove('active'));
+
+      el.classList.add('active');
+      document.getElementById(`view-${tabName}`).classList.add('active');
+
+      if (tabName === 'favoritos') renderFavoritosGrid();
+    }
+
+    // RENDERIZAR CÔMODOS
+    function renderComodosGrid() {
+      const grid = document.getElementById('comodosGrid');
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      grid.innerHTML = '';
+
+      const filtered = db.comodos.filter(c => 
+        c.nome.toLowerCase().includes(search) || (c.desc && c.desc.toLowerCase().includes(search))
+      );
+
+      filtered.forEach(c => {
+        grid.appendChild(createComodoCardHTML(c));
+      });
+    }
+
+    function renderFavoritosGrid() {
+      const grid = document.getElementById('favoritosGrid');
+      grid.innerHTML = '';
+      const favs = db.comodos.filter(c => c.favorito);
+
+      if (favs.length === 0) {
+        grid.innerHTML = `<p style="color:var(--text-muted); font-size:13px;">Nenhum cômodo nas mídias de favoritos ainda.</p>`;
+        return;
+      }
+      favs.forEach(c => grid.appendChild(createComodoCardHTML(c)));
+    }
+
+    function createComodoCardHTML(c) {
+      const card = document.createElement('div');
+      card.className = 'comodo-card';
+
+      card.innerHTML = `
+        <div>
+          <div class="card-top-head">
+            <div class="card-title-group">
+              <span class="icon">${c.icone || '🏠'}</span>
+              <span class="name">${escapeText(c.nome)}</span>
+            </div>
+            <div class="card-actions-icons">
+              <button class="icon-btn" onclick="editComodo('${c.id}')" title="Editar">✏️</button>
+              <button class="icon-btn delete" onclick="deleteComodo('${c.id}')" title="Excluir">🗑️</button>
+            </div>
+          </div>
+
+          <div class="dual-images-container">
+            <div class="person-img-box">
+              <div class="img-frame">
+                <img src="${c.imgMarcella || 'https://via.placeholder.com/300x400/0d111a/ffffff?text=Marcella'}" alt="Ref Marcella" onerror="this.src='https://via.placeholder.com/300x400/0d111a/ffffff?text=Sem+Foto'">
+              </div>
+              <div class="person-tag marcella">
+                <span class="dot"></span>
+                <span>Marcella</span>
+              </div>
+            </div>
+
+            <div class="person-img-box">
+              <div class="img-frame">
+                <img src="${c.imgGabriel || 'https://via.placeholder.com/300x400/0d111a/ffffff?text=Gabriel'}" alt="Ref Gabriel" onerror="this.src='https://via.placeholder.com/300x400/0d111a/ffffff?text=Sem+Foto'">
+              </div>
+              <div class="person-tag gabriel">
+                <span class="dot"></span>
+                <span>Gabriel</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-romantic-note">
+            <span class="heart">${c.favorito ? '♥' : '♡'}</span>
+            <span>${escapeText(c.desc || 'Sem observações ainda...')}</span>
+          </div>
+        </div>
+
+        <div class="card-footer-link">
+          <button class="ver-detalhes-btn" onclick="toggleFavorito('${c.id}')">
+            ${c.favorito ? 'Remover favorito' : 'Favoritar ♥'} →
+          </button>
+        </div>
+      `;
+      return card;
+    }
+
+    // EDICAO & SALVAMENTO DE CÔMODOS
+    function saveComodoHandler(e) {
+      e.preventDefault();
+      const id = document.getElementById('editComodoId').value;
+      const nome = document.getElementById('inputNomeComodo').value;
+      const icone = document.getElementById('selectIconeComodo').value;
+      const imgMarcella = document.getElementById('inputUrlMarcella').value;
+      const imgGabriel = document.getElementById('inputUrlGabriel').value;
+      const desc = document.getElementById('inputDescricao').value;
+      const status = document.querySelector('input[name="statusOption"]:checked').value;
+
+      if (id) {
+        const item = db.comodos.find(x => x.id === id);
+        if (item) {
+          item.nome = nome;
+          item.icone = icone;
+          item.imgMarcella = imgMarcella;
+          item.imgGabriel = imgGabriel;
+          item.desc = desc;
+          item.status = status;
+        }
+      } else {
+        db.comodos.push({
+          id: Date.now().toString(),
+          nome,
+          icone,
+          imgMarcella,
+          imgGabriel,
+          desc,
+          status,
+          favorito: false
         });
+      }
 
-        function initData() {
-            const savedRooms = localStorage.getItem(ROOMS_KEY);
-            const savedTasks = localStorage.getItem(TASKS_KEY);
+      saveDatabase();
+      renderComodosGrid();
+      resetFormToNew();
+    }
 
-            rooms = savedRooms ? JSON.parse(savedRooms) : DEFAULT_ROOMS;
-            tasks = savedTasks ? JSON.parse(savedTasks) : DEFAULT_TASKS;
+    function editComodo(id) {
+      const c = db.comodos.find(x => x.id === id);
+      if (!c) return;
 
-            if (!savedRooms) saveRooms();
-            if (!savedTasks) saveTasks();
+      document.getElementById('editComodoId').value = c.id;
+      document.getElementById('inputNomeComodo').value = c.nome;
+      document.getElementById('selectIconeComodo').value = c.icone;
+      document.getElementById('inputUrlMarcella').value = c.imgMarcella || '';
+      document.getElementById('inputUrlGabriel').value = c.imgGabriel || '';
+      document.getElementById('inputDescricao').value = c.desc || '';
+
+      const rad = document.querySelector(`input[name="statusOption"][value="${c.status}"]`);
+      if (rad) rad.checked = true;
+
+      document.getElementById('panelHeaderTitle').innerText = '✏️ Editar Cômodo';
+    }
+
+    function deleteComodo(id) {
+      if (confirm('Deseja excluir este cômodo?')) {
+        db.comodos = db.comodos.filter(x => x.id !== id);
+        saveDatabase();
+        renderComodosGrid();
+      }
+    }
+
+    function toggleFavorito(id) {
+      const c = db.comodos.find(x => x.id === id);
+      if (c) {
+        c.favorito = !c.favorito;
+        saveDatabase();
+        renderComodosGrid();
+      }
+    }
+
+    function resetFormToNew() {
+      document.getElementById('editComodoId').value = '';
+      document.getElementById('comodoEditorForm').reset();
+      document.getElementById('panelHeaderTitle').innerText = '+ Adicionar / Editar Cômodo';
+    }
+
+    // UPLOAD LOCAL
+    function handleFileSelected(e, targetInputId) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        document.getElementById(targetInputId).value = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // TAREFAS
+    function renderTasksList() {
+      const container = document.getElementById('taskListContainer');
+      container.innerHTML = '';
+
+      if (!db.tarefas || db.tarefas.length === 0) {
+        container.innerHTML = `<p style="color:var(--text-muted); font-size:12px;">Sem tarefas.</p>`;
+        return;
+      }
+
+      db.tarefas.forEach(t => {
+        const row = document.createElement('div');
+        row.className = 'task-row';
+        row.innerHTML = `
+          <label style="display:flex; align-items:center; gap:10px; font-size:13px; cursor:pointer;">
+            <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTaskDone('${t.id}')">
+            <span style="${t.done ? 'text-decoration:line-through; color:var(--text-muted);' : ''}">${escapeText(t.text)}</span>
+          </label>
+          <button class="icon-btn delete" onclick="deleteTaskItem('${t.id}')">🗑️</button>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function addNewTask() {
+      const inp = document.getElementById('newTaskInput');
+      if (!inp.value.trim()) return;
+
+      db.tarefas.push({ id: Date.now().toString(), text: inp.value.trim(), done: false });
+      inp.value = '';
+      saveDatabase();
+      renderTasksList();
+    }
+
+    function toggleTaskDone(id) {
+      const t = db.tarefas.find(x => x.id === id);
+      if (t) {
+        t.done = !t.done;
+        saveDatabase();
+        renderTasksList();
+      }
+    }
+
+    function deleteTaskItem(id) {
+      db.tarefas = db.tarefas.filter(x => x.id !== id);
+      saveDatabase();
+      renderTasksList();
+    }
+
+    // ANOTAÇÕES
+    function autoSaveNotes() {
+      db.anotacoes = document.getElementById('anotacoesArea').value;
+      saveDatabase();
+    }
+
+    // BACKUP
+    function exportDataJSON() {
+      const blob = new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'nosso_apartamento_dos_sonhos_backup.json';
+      a.click();
+    }
+
+    function importDataJSON(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          db = JSON.parse(evt.target.result);
+          saveDatabase();
+          location.reload();
+        } catch(err) {
+          alert('Arquivo JSON inválido.');
         }
+      };
+      reader.readAsText(file);
+    }
 
-        function saveRooms() {
-            localStorage.setItem(ROOMS_KEY, JSON.stringify(rooms));
-        }
+    function resetDefaultData() {
+      if (confirm('Restaurar os dados padrões?')) {
+        db = initialData;
+        saveDatabase();
+        location.reload();
+      }
+    }
 
-        function saveTasks() {
-            localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
-        }
-
-        // RENDER DE CÔMODOS IDÊNTICO À IMAGEM SOLICITADA
-        function renderRooms() {
-            const grid = document.getElementById('rooms-grid');
-            const emptyState = document.getElementById('empty-rooms');
-            const searchVal = document.getElementById('search-rooms').value.toLowerCase();
-
-            const filtered = rooms.filter(r => r.name.toLowerCase().includes(searchVal) || r.desc.toLowerCase().includes(searchVal));
-
-            if (filtered.length === 0) {
-                grid.innerHTML = '';
-                emptyState.classList.remove('hidden');
-                return;
-            } else {
-                emptyState.classList.add('hidden');
-            }
-
-            grid.innerHTML = filtered.map(room => {
-                const iconHtml = getIconSvg(room.icon);
-                
-                return `
-                    <div class="bg-[#161c2e] rounded-2xl border border-slate-800 p-4 space-y-3.5 group hover:border-rose-500/30 transition duration-300 flex flex-col justify-between">
-                        <div>
-                            <!-- Header do Card: Ícone + Nome + Botões de Ação -->
-                            <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
-                                <div class="flex items-center gap-2.5">
-                                    <span class="p-1.5 rounded-lg bg-rose-500/10 text-rose-400">
-                                        ${iconHtml}
-                                    </span>
-                                    <h3 class="font-serif text-base font-bold text-slate-100">${room.name}</h3>
-                                </div>
-
-                                <div class="flex items-center gap-1.5">
-                                    <button onclick="toggleFavorite('${room.id}')" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-rose-400 transition" title="Favoritar">
-                                        <i data-lucide="heart" class="w-4 h-4 ${room.favorite ? 'text-rose-500 fill-rose-500' : ''}"></i>
-                                    </button>
-                                    <button onclick="populateFormForEdit('${room.id}')" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition" title="Editar">
-                                        <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
-                                    </button>
-                                    <button onclick="deleteRoom('${room.id}')" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-rose-400 transition" title="Excluir">
-                                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Duas Imagens Lado a Lado (Marcella vs Gabriel) -->
-                            <div class="grid grid-cols-2 gap-2 mt-3">
-                                <!-- LADO MARCELLA -->
-                                <div class="space-y-1.5">
-                                    <div class="room-img-container h-32 sm:h-36 bg-slate-950 border border-pink-500/20">
-                                        <img src="${room.refMarcella || 'https://images.unsplash.com/photo-1540518614846-7ede433c5163?auto=format&fit=crop&w=600&q=80'}" alt="Ref Marcella" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1540518614846-7ede433c5163?auto=format&fit=crop&w=600&q=80';" class="w-full h-full object-cover">
-                                    </div>
-                                    <div class="flex items-center gap-1.5 px-0.5">
-                                        <span class="w-2 h-2 rounded-full bg-pink-400"></span>
-                                        <span class="text-[11px] font-medium text-pink-300">Marcella</span>
-                                    </div>
-                                </div>
-
-                                <!-- LADO GABRIEL -->
-                                <div class="space-y-1.5">
-                                    <div class="room-img-container h-32 sm:h-36 bg-slate-950 border border-blue-500/20">
-                                        <img src="${room.refGabriel || 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=80'}" alt="Ref Gabriel" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=80';" class="w-full h-full object-cover">
-                                    </div>
-                                    <div class="flex items-center gap-1.5 px-0.5">
-                                        <span class="w-2 h-2 rounded-full bg-blue-400"></span>
-                                        <span class="text-[11px] font-medium text-blue-300">Gabriel</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Rodapé do Card: Frase Fofa + Link Detalhes -->
-                        <div class="pt-2 space-y-2 border-t border-slate-800/60">
-                            <p class="text-xs text-slate-300 font-light flex items-center gap-1.5 line-clamp-1">
-                                <i data-lucide="heart" class="w-3.5 h-3.5 text-rose-500 fill-rose-500 shrink-0"></i>
-                                <span>${room.desc || 'Nosso cantinho especial.'}</span>
-                            </p>
-
-                            <div class="flex items-center justify-between text-[11px]">
-                                <span class="px-2 py-0.5 rounded-full text-[10px] font-medium ${getStatusBadgeClass(room.status)}">
-                                    ${room.status}
-                                </span>
-                                <button onclick="openDetailModal('${room.id}')" class="text-slate-400 hover:text-rose-300 flex items-center gap-1 transition">
-                                    <span>Ver detalhes</span>
-                                    <i data-lucide="arrow-right" class="w-3 h-3"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            lucide.createIcons();
-        }
-
-        // SALVAR CÔMODO (CRIAR / EDITAR)
-        function handleRoomSave(e) {
-            e.preventDefault();
-
-            const id = document.getElementById('room-id').value;
-            const name = document.getElementById('room-name').value.trim();
-            const icon = document.getElementById('room-icon').value;
-            const refMarcella = document.getElementById('room-ref-marcella').value.trim();
-            const refGabriel = document.getElementById('room-ref-gabriel').value.trim();
-            const desc = document.getElementById('room-desc').value.trim();
-            
-            const statusRadios = document.getElementsByName('room-status-radio');
-            let status = 'Planejado';
-            for (const r of statusRadios) {
-                if (r.checked) { status = r.value; break; }
-            }
-
-            if (id) {
-                const index = rooms.findIndex(r => r.id === id);
-                if (index !== -1) {
-                    rooms[index] = { ...rooms[index], name, icon, refMarcella, refGabriel, desc, status };
-                }
-            } else {
-                const newRoom = {
-                    id: Date.now().toString(),
-                    name,
-                    icon,
-                    refMarcella,
-                    refGabriel,
-                    desc,
-                    status,
-                    favorite: false
-                };
-                rooms.unshift(newRoom);
-
-                confetti({
-                    particleCount: 50,
-                    spread: 50,
-                    origin: { y: 0.8 },
-                    colors: ['#f43f5e', '#fb7185', '#60a5fa']
-                });
-            }
-
-            saveRooms();
-            renderRooms();
-            resetFormForNew();
-        }
-
-        function populateFormForEdit(id) {
-            const room = rooms.find(r => r.id === id);
-            if (!room) return;
-
-            document.getElementById('room-id').value = room.id;
-            document.getElementById('room-name').value = room.name;
-            document.getElementById('room-icon').value = room.icon || 'bed';
-            document.getElementById('room-ref-marcella').value = room.refMarcella || '';
-            document.getElementById('room-ref-gabriel').value = room.refGabriel || '';
-            document.getElementById('room-desc').value = room.desc || '';
-
-            const statusRadios = document.getElementsByName('room-status-radio');
-            for (const r of statusRadios) {
-                if (r.value === room.status) r.checked = true;
-            }
-
-            document.getElementById('btn-submit-text').textContent = 'Atualizar Cômodo';
-            document.getElementById('form-panel-title').innerHTML = `<i data-lucide="pencil" class="w-5 h-5 text-rose-400"></i><span>Editar Cômodo</span>`;
-            lucide.createIcons();
-            
-            // Scroll até o formulário no mobile
-            document.getElementById('room-form').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function resetFormForNew() {
-            document.getElementById('room-form').reset();
-            document.getElementById('room-id').value = '';
-            document.getElementById('btn-submit-text').textContent = 'Salvar Cômodo';
-            document.getElementById('form-panel-title').innerHTML = `<i data-lucide="plus" class="w-5 h-5 text-rose-400"></i><span>Adicionar / Editar Cômodo</span>`;
-            lucide.createIcons();
-        }
-
-        function deleteRoom(id) {
-            if (confirm('Deseja realmente remover este cômodo dos sonhos?')) {
-                rooms = rooms.filter(r => r.id !== id);
-                saveRooms();
-                renderRooms();
-            }
-        }
-
-        function toggleFavorite(id) {
-            const room = rooms.find(r => r.id === id);
-            if (room) {
-                room.favorite = !room.favorite;
-                saveRooms();
-                renderRooms();
-                renderFavorites();
-            }
-        }
-
-        // COVER IMAGE LOGIC
-        function openCoverModal() {
-            document.getElementById('cover-modal').classList.remove('hidden');
-        }
-
-        function closeCoverModal() {
-            document.getElementById('cover-modal').classList.add('hidden');
-        }
-
-        function saveCoverImage() {
-            const url = document.getElementById('cover-url-input').value.trim();
-            if (url) {
-                localStorage.setItem(COVER_KEY, url);
-                document.getElementById('app-cover-img').src = url;
-                closeCoverModal();
-            }
-        }
-
-        function loadCoverImage() {
-            const savedCover = localStorage.getItem(COVER_KEY);
-            if (savedCover) {
-                document.getElementById('app-cover-img').src = savedCover;
-            }
-        }
-
-        // FILE UPLOAD HANDLER (FileReader converting to DataURL)
-        function handleFileUpload(event, inputTargetId) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById(inputTargetId).value = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // TAB NAVIGATION
-        function switchTab(tab) {
-            const tabs = ['rooms', 'tasks', 'notes', 'favorites', 'settings'];
-            tabs.forEach(t => {
-                document.getElementById(`tab-${t}-content`).classList.add('hidden');
-                document.getElementById(`nav-${t}`).classList.remove('active-sidebar-item');
-            });
-
-            document.getElementById(`tab-${tab}-content`).classList.remove('hidden');
-            document.getElementById(`nav-${tab}`).classList.add('active-sidebar-item');
-
-            if (tab === 'favorites') renderFavorites();
-        }
-
-        // DETAIL MODAL LOGIC
-        function openDetailModal(id) {
-            const room = rooms.find(r => r.id === id);
-            if (!room) return;
-
-            document.getElementById('detail-room-name').textContent = room.name;
-            document.getElementById('detail-room-icon').innerHTML = getIconSvg(room.icon);
-            document.getElementById('detail-img-marcella').src = room.refMarcella || '';
-            document.getElementById('detail-img-gabriel').src = room.refGabriel || '';
-            document.getElementById('detail-desc').textContent = room.desc || 'Nenhuma descrição detalhada informada.';
-            
-            document.getElementById('detail-status-badge').className = `px-3 py-1 rounded-full text-xs font-semibold ${getStatusBadgeClass(room.status)}`;
-            document.getElementById('detail-status-badge').textContent = room.status;
-
-            document.getElementById('detail-modal').classList.remove('hidden');
-            lucide.createIcons();
-        }
-
-        function closeDetailModal() {
-            document.getElementById('detail-modal').classList.add('hidden');
-        }
-
-        // TASKS LOGIC
-        function renderTasks() {
-            const list = document.getElementById('tasks-list');
-            if (tasks.length === 0) {
-                list.innerHTML = `<p class="text-xs text-slate-500 italic py-4">Nenhuma tarefa pendente.</p>`;
-                return;
-            }
-
-            list.innerHTML = tasks.map(t => `
-                <div class="flex items-center justify-between p-3 rounded-xl bg-[#121726] border border-slate-800">
-                    <label class="flex items-center gap-3 cursor-pointer">
-                        <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTask('${t.id}')" class="w-4 h-4 rounded border-slate-700 text-rose-500 focus:ring-0">
-                        <span class="text-xs ${t.done ? 'line-through text-slate-500' : 'text-slate-200'}">${t.text}</span>
-                    </label>
-                    <button onclick="deleteTask('${t.id}')" class="text-slate-500 hover:text-rose-400">
-                        <i data-lucide="x" class="w-4 h-4"></i>
-                    </button>
-                </div>
-            `).join('');
-
-            lucide.createIcons();
-        }
-
-        function addTask() {
-            const input = document.getElementById('new-task-text');
-            const text = input.value.trim();
-            if (!text) return;
-
-            tasks.push({ id: Date.now().toString(), text, done: false });
-            saveTasks();
-            renderTasks();
-            input.value = '';
-        }
-
-        function toggleTask(id) {
-            const t = tasks.find(item => item.id === id);
-            if (t) {
-                t.done = !t.done;
-                saveTasks();
-                renderTasks();
-            }
-        }
-
-        function deleteTask(id) {
-            tasks = tasks.filter(t => t.id !== id);
-            saveTasks();
-            renderTasks();
-        }
-
-        // NOTES LOGIC
-        function saveNotes() {
-            const text = document.getElementById('notepad-content').value;
-            localStorage.setItem(NOTES_KEY, text);
-            document.getElementById('notes-status').textContent = 'Salvo!';
-            setTimeout(() => {
-                document.getElementById('notes-status').textContent = 'Sincronizado';
-            }, 1500);
-        }
-
-        function loadNotes() {
-            const text = localStorage.getItem(NOTES_KEY) || '';
-            document.getElementById('notepad-content').value = text;
-        }
-
-        // FAVORITES LOGIC
-        function renderFavorites() {
-            const grid = document.getElementById('favorites-grid');
-            const favs = rooms.filter(r => r.favorite);
-
-            if (favs.length === 0) {
-                grid.innerHTML = `<p class="text-xs text-slate-500 col-span-full py-8 text-center italic">Nenhum cômodo favoritado ainda. Clique no coração dos cards na aba Cômodos.</p>`;
-                return;
-            }
-
-            grid.innerHTML = favs.map(room => `
-                <div class="bg-[#161c2e] rounded-2xl border border-slate-800 p-4 space-y-3">
-                    <div class="flex items-center justify-between">
-                        <h4 class="font-serif font-bold text-slate-100 flex items-center gap-2">
-                            ${getIconSvg(room.icon)} ${room.name}
-                        </h4>
-                        <i data-lucide="heart" class="w-4 h-4 text-rose-500 fill-rose-500"></i>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <img src="${room.refMarcella}" class="h-28 w-full object-cover rounded-xl border border-pink-500/20">
-                        <img src="${room.refGabriel}" class="h-28 w-full object-cover rounded-xl border border-blue-500/20">
-                    </div>
-                    <p class="text-xs text-slate-300 italic">"${room.desc}"</p>
-                </div>
-            `).join('');
-
-            lucide.createIcons();
-        }
-
-        // HELPERS & ICONS
-        function getIconSvg(type) {
-            const map = {
-                'bed': `<i data-lucide="bed" class="w-4 h-4"></i>`,
-                'sofa': `<i data-lucide="sofa" class="w-4 h-4"></i>`,
-                'utensils': `<i data-lucide="utensils" class="w-4 h-4"></i>`,
-                'bath': `<i data-lucide="bath" class="w-4 h-4"></i>`,
-                'flower-2': `<i data-lucide="flower-2" class="w-4 h-4"></i>`,
-                'laptop': `<i data-lucide="laptop" class="w-4 h-4"></i>`,
-                'heart': `<i data-lucide="heart" class="w-4 h-4"></i>`
-            };
-            return map[type] || `<i data-lucide="home" class="w-4 h-4"></i>`;
-        }
-
-        function getStatusBadgeClass(status) {
-            if (status === 'Concluído') return 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
-            if (status === 'Em andamento') return 'bg-amber-500/20 text-amber-300 border border-amber-500/30';
-            return 'bg-rose-500/20 text-rose-300 border border-rose-500/30';
-        }
-
-        function restoreDefaultRooms() {
-            if (confirm('Deseja restaurar os cômodos padrão originais?')) {
-                rooms = DEFAULT_ROOMS;
-                saveRooms();
-                renderRooms();
-            }
-        }
-
-        function clearAllData() {
-            if (confirm('Atenção: Isso apagará todas as suas alterações personalizadas. Continuar?')) {
-                localStorage.clear();
-                rooms = DEFAULT_ROOMS;
-                tasks = DEFAULT_TASKS;
-                saveRooms();
-                saveTasks();
-                renderRooms();
-                renderTasks();
-                loadNotes();
-                loadCoverImage();
-            }
-        }
-    </script>
+    function escapeText(text) {
+      return text ? text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") : '';
+    }
+  </script>
 </body>
 </html>
