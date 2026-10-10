@@ -126,6 +126,7 @@
       cursor: pointer;
       font-size: 13.5px;
       font-weight: 500;
+      text-decoration: none;
       text-align: left;
       transition: all 0.2s ease;
     }
@@ -852,6 +853,137 @@
         min-height: 44px;
       }
     }
+
+    body {
+      display: block;
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+      min-height: 100svh;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    aside.sidebar {
+      position: static;
+      width: 100%;
+      padding: 20px clamp(16px, 4vw, 40px);
+      border-right: 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand,
+    .sidebar-footer {
+      display: flex;
+    }
+
+    .brand {
+      margin-bottom: 18px;
+    }
+
+    .sidebar-footer {
+      flex-direction: row;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    .sidebar-quote-box {
+      flex: 1;
+    }
+
+    .sidebar-window-img {
+      width: min(32%, 180px);
+      height: 76px;
+    }
+
+    .nav-list {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .nav-list > li {
+      flex: 1 1 130px;
+      min-width: 0;
+    }
+
+    .nav-item {
+      width: 100%;
+      min-height: 42px;
+      flex-direction: row;
+      justify-content: flex-start;
+      padding: 9px 12px;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    main.main-content {
+      width: 100%;
+      max-width: 1200px;
+      height: auto;
+      min-height: 0;
+      margin: 0 auto;
+      padding: 24px clamp(16px, 4vw, 40px);
+      overflow: visible;
+    }
+
+    .tab-view-container,
+    .tab-view-container.active {
+      display: block;
+      width: 100%;
+      padding: 20px 0;
+      scroll-margin-top: 16px;
+    }
+
+    .tab-view-container + .tab-view-container {
+      border-top: 1px solid var(--border-color);
+    }
+
+    aside.editor-panel {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px clamp(16px, 4vw, 40px) 40px;
+      border-top: 1px solid var(--border-color);
+      border-left: 0;
+      overflow: visible;
+    }
+
+    #comodoEditorForm {
+      width: 100%;
+      max-width: 680px;
+    }
+
+    @media (max-width: 760px) {
+      .sidebar-footer {
+        display: none;
+      }
+
+      .nav-list > li {
+        flex: 1 1 120px;
+      }
+
+      .nav-item {
+        min-height: 44px;
+        flex-direction: row;
+        justify-content: flex-start;
+        font-size: 12px;
+        text-align: left;
+      }
+
+      main.main-content {
+        padding: 16px;
+      }
+
+      .tab-view-container,
+      .tab-view-container.active {
+        padding: 18px 0;
+      }
+
+      aside.editor-panel {
+        padding: 20px 16px 32px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -867,31 +999,31 @@
         </div>
       </div>
 
-      <ul class="nav-list" role="tablist" aria-label="Seções do apartamento">
+      <ul class="nav-list" aria-label="Seções do apartamento">
         <li>
-          <button type="button" id="tab-comodos" class="nav-item active" role="tab" aria-selected="true" aria-controls="view-comodos" tabindex="0" data-tab="comodos">
+          <a href="#view-comodos" id="tab-comodos" class="nav-item active" aria-current="location" data-tab="comodos">
             <span>🏠</span> Cômodos
-          </button>
+          </a>
         </li>
         <li>
-          <button type="button" id="tab-tarefas" class="nav-item" role="tab" aria-selected="false" aria-controls="view-tarefas" tabindex="-1" data-tab="tarefas">
+          <a href="#view-tarefas" id="tab-tarefas" class="nav-item" data-tab="tarefas">
             <span>☑</span> Tarefas
-          </button>
+          </a>
         </li>
         <li>
-          <button type="button" id="tab-anotacoes" class="nav-item" role="tab" aria-selected="false" aria-controls="view-anotacoes" tabindex="-1" data-tab="anotacoes">
+          <a href="#view-anotacoes" id="tab-anotacoes" class="nav-item" data-tab="anotacoes">
             <span>📝</span> Anotações
-          </button>
+          </a>
         </li>
         <li>
-          <button type="button" id="tab-favoritos" class="nav-item" role="tab" aria-selected="false" aria-controls="view-favoritos" tabindex="-1" data-tab="favoritos">
+          <a href="#view-favoritos" id="tab-favoritos" class="nav-item" data-tab="favoritos">
             <span>♥</span> Favoritos
-          </button>
+          </a>
         </li>
         <li>
-          <button type="button" id="tab-configuracoes" class="nav-item" role="tab" aria-selected="false" aria-controls="view-configuracoes" tabindex="-1" data-tab="configuracoes">
+          <a href="#view-configuracoes" id="tab-configuracoes" class="nav-item" data-tab="configuracoes">
             <span>⚙</span> Configurações
-          </button>
+          </a>
         </li>
       </ul>
     </div>
@@ -916,7 +1048,7 @@
     </div>
 
     <!-- ABA 1: CÔMODOS (PADRÃO) -->
-    <div id="view-comodos" class="tab-view-container active" role="tabpanel" aria-labelledby="tab-comodos" tabindex="0">
+    <div id="view-comodos" class="tab-view-container active">
       <div class="page-header">
         <div class="header-left">
           <h1><span>🏠</span> Cômodos</h1>
@@ -927,7 +1059,7 @@
             <span class="search-icon-inside">🔍</span>
             <input type="text" id="searchInput" placeholder="Buscar cômodo..." oninput="renderComodosGrid()">
           </div>
-          <button class="btn-novo-comodo" onclick="resetFormToNew()">
+          <button class="btn-novo-comodo" onclick="openNewComodoForm()">
             <span>+</span> Novo Cômodo
           </button>
         </div>
@@ -940,7 +1072,7 @@
     </div>
 
     <!-- ABA 2: TAREFAS -->
-    <div id="view-tarefas" class="tab-view-container" role="tabpanel" aria-labelledby="tab-tarefas" tabindex="0">
+    <div id="view-tarefas" class="tab-view-container">
       <h1 style="font-family:'Playfair Display'; margin-bottom: 16px;">☑ Tarefas do Casal</h1>
       <div class="simple-card-box">
         <div style="display:flex; gap:10px; margin-bottom:16px;">
@@ -952,7 +1084,7 @@
     </div>
 
     <!-- ABA 3: ANOTAÇÕES -->
-    <div id="view-anotacoes" class="tab-view-container" role="tabpanel" aria-labelledby="tab-anotacoes" tabindex="0">
+    <div id="view-anotacoes" class="tab-view-container">
       <h1 style="font-family:'Playfair Display'; margin-bottom: 16px;">📝 Anotações & Recados</h1>
       <div class="simple-card-box">
         <textarea id="anotacoesArea" class="form-control" style="height:300px; line-height:1.6;" placeholder="Escreva aqui..." oninput="autoSaveNotes()"></textarea>
@@ -960,13 +1092,13 @@
     </div>
 
     <!-- ABA 4: FAVORITOS -->
-    <div id="view-favoritos" class="tab-view-container" role="tabpanel" aria-labelledby="tab-favoritos" tabindex="0">
+    <div id="view-favoritos" class="tab-view-container">
       <h1 style="font-family:'Playfair Display'; margin-bottom: 16px;">♥ Cômodos Favoritos</h1>
       <div class="comodos-grid" id="favoritosGrid"></div>
     </div>
 
     <!-- ABA 5: CONFIGURAÇÕES -->
-    <div id="view-configuracoes" class="tab-view-container" role="tabpanel" aria-labelledby="tab-configuracoes" tabindex="0">
+    <div id="view-configuracoes" class="tab-view-container">
       <h1 style="font-family:'Playfair Display'; margin-bottom: 16px;">⚙ Configurações & Backup</h1>
       <div class="simple-card-box" style="display:flex; flex-direction:column; gap:12px; max-width:300px;">
         <button class="btn-novo-comodo" onclick="exportDataJSON()">📥 Baixar Backup JSON</button>
@@ -1162,55 +1294,39 @@
     document.addEventListener('DOMContentLoaded', () => {
       renderComodosGrid();
       renderTasksList();
+      renderFavoritosGrid();
       document.getElementById('anotacoesArea').value = db.anotacoes || '';
+      const selectedLink = Array.from(document.querySelectorAll('.nav-item[data-tab]'))
+        .find(link => link.getAttribute('href') === window.location.hash);
+      if (selectedLink) switchNavTab(selectedLink.dataset.tab);
     });
 
-    // NAVEGAÇÃO DE ABAS
-    function switchNavTab(tabName, focusTab = false) {
-      const tabs = Array.from(document.querySelectorAll('.nav-item[role="tab"]'));
-      const selectedTab = tabs.find(tab => tab.dataset.tab === tabName);
-      const selectedView = document.getElementById(`view-${tabName}`);
-      if (!selectedTab || !selectedView) return;
+    // NAVEGAÇÃO PELAS SEÇÕES DA PÁGINA
+    function switchNavTab(tabName) {
+      const links = document.querySelectorAll('.nav-item[data-tab]');
+      const selectedLink = Array.from(links).find(link => link.dataset.tab === tabName);
+      if (!selectedLink) return;
 
-      tabs.forEach(tab => {
-        const isSelected = tab === selectedTab;
-        tab.classList.toggle('active', isSelected);
-        tab.setAttribute('aria-selected', String(isSelected));
-        tab.tabIndex = isSelected ? 0 : -1;
+      links.forEach(link => {
+        const isSelected = link === selectedLink;
+        link.classList.toggle('active', isSelected);
+        if (isSelected) {
+          link.setAttribute('aria-current', 'location');
+        } else {
+          link.removeAttribute('aria-current');
+        }
       });
-      document.querySelectorAll('.tab-view-container').forEach(view => {
-        view.classList.toggle('active', view === selectedView);
-      });
-
-      if (focusTab) selectedTab.focus();
-      if (tabName === 'favoritos') renderFavoritosGrid();
     }
 
     document.querySelector('.nav-list').addEventListener('click', event => {
-      const tab = event.target.closest('.nav-item[role="tab"]');
-      if (tab) switchNavTab(tab.dataset.tab);
+      const link = event.target.closest('.nav-item[data-tab]');
+      if (link) switchNavTab(link.dataset.tab);
     });
 
-    document.querySelector('.nav-list').addEventListener('keydown', event => {
-      const tabs = Array.from(document.querySelectorAll('.nav-item[role="tab"]'));
-      const currentIndex = tabs.indexOf(document.activeElement);
-      if (currentIndex === -1) return;
-
-      let nextIndex = currentIndex;
-      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-        nextIndex = (currentIndex + 1) % tabs.length;
-      } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-        nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-      } else if (event.key === 'Home') {
-        nextIndex = 0;
-      } else if (event.key === 'End') {
-        nextIndex = tabs.length - 1;
-      } else {
-        return;
-      }
-
-      event.preventDefault();
-      switchNavTab(tabs[nextIndex].dataset.tab, true);
+    window.addEventListener('hashchange', () => {
+      const selectedLink = Array.from(document.querySelectorAll('.nav-item[data-tab]'))
+        .find(link => link.getAttribute('href') === window.location.hash);
+      if (selectedLink) switchNavTab(selectedLink.dataset.tab);
     });
 
     // RENDERIZAR CÔMODOS
@@ -1330,6 +1446,7 @@
 
       saveDatabase();
       renderComodosGrid();
+      renderFavoritosGrid();
       resetFormToNew();
     }
 
@@ -1348,6 +1465,7 @@
       if (rad) rad.checked = true;
 
       document.getElementById('panelHeaderTitle').innerText = '✏️ Editar Cômodo';
+      document.getElementById('comodoEditorForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function deleteComodo(id) {
@@ -1381,7 +1499,13 @@
         c.favorito = !c.favorito;
         saveDatabase();
         renderComodosGrid();
+        renderFavoritosGrid();
       }
+    }
+
+    function openNewComodoForm() {
+      resetFormToNew();
+      document.getElementById('comodoEditorForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function resetFormToNew() {
