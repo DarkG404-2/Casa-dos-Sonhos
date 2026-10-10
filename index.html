@@ -583,6 +583,67 @@
       padding: 10px 0;
       border-bottom: 1px solid var(--border-color);
     }
+
+    .delete-confirmation-dialog {
+      width: min(420px, calc(100vw - 32px));
+      margin: auto;
+      padding: 24px;
+      color: var(--text-main);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+    }
+
+    .delete-confirmation-dialog::backdrop {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(3px);
+    }
+
+    .delete-confirmation-dialog h2 {
+      margin-bottom: 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: #ffffff;
+    }
+
+    .delete-confirmation-dialog p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .delete-confirmation-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .delete-confirmation-actions button {
+      padding: 9px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .delete-confirmation-cancel {
+      color: var(--text-main);
+      background: transparent;
+      border: 1px solid var(--border-color);
+    }
+
+    .delete-confirmation-submit {
+      color: #ffffff;
+      background: #dc2626;
+      border: 1px solid #dc2626;
+    }
+
+    .delete-confirmation-submit:hover {
+      background: #b91c1c;
+      border-color: #b91c1c;
+    }
   </style>
 </head>
 <body>
@@ -622,7 +683,7 @@
         <div class="sidebar-quote-heart">♥</div>
         <p class="sidebar-quote-text">Não é só sobre um apartamento, é sobre o nosso futuro. ♡</p>
       </div>
-      <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=400&q=80" alt="Janela Noturna Aconchegante" class="sidebar-window-img">
+      <img src="https://i.pinimg.com/736x/5b/38/b6/5b38b6ff1435f7c453e46fb9c10b11af.jpg" alt="Imagem decorativa" class="sidebar-window-img">
     </div>
   </aside>
 
@@ -774,6 +835,15 @@
     </form>
   </aside>
 
+  <dialog id="deleteComodoDialog" class="delete-confirmation-dialog" aria-labelledby="deleteComodoTitle" aria-describedby="deleteComodoDescription">
+    <h2 id="deleteComodoTitle">Excluir cômodo?</h2>
+    <p id="deleteComodoDescription">Tem certeza que deseja excluir <strong id="deleteComodoName"></strong>? Esta ação não pode ser desfeita.</p>
+    <div class="delete-confirmation-actions">
+      <button type="button" class="delete-confirmation-cancel" onclick="cancelDeleteComodo()">Cancelar</button>
+      <button type="button" class="delete-confirmation-submit" onclick="confirmDeleteComodo()">Excluir</button>
+    </div>
+  </dialog>
+
   <!-- SCRIPT & ARMAZENAMENTO LOCAL -->
   <script>
     const STORAGE_KEY = 'casa_sonhos_db_v3';
@@ -850,6 +920,7 @@
     };
 
     let db = loadDatabase();
+    let pendingComodoDeletionId = null;
 
     function loadDatabase() {
       try {
@@ -1025,11 +1096,28 @@
     }
 
     function deleteComodo(id) {
-      if (confirm('Deseja excluir este cômodo?')) {
-        db.comodos = db.comodos.filter(x => x.id !== id);
-        saveDatabase();
-        renderComodosGrid();
-      }
+      const comodo = db.comodos.find(x => x.id === id);
+      if (!comodo) return;
+
+      pendingComodoDeletionId = id;
+      document.getElementById('deleteComodoName').textContent = comodo.nome;
+      document.getElementById('deleteComodoDialog').showModal();
+    }
+
+    function cancelDeleteComodo() {
+      pendingComodoDeletionId = null;
+      document.getElementById('deleteComodoDialog').close();
+    }
+
+    function confirmDeleteComodo() {
+      if (pendingComodoDeletionId === null) return;
+
+      db.comodos = db.comodos.filter(x => x.id !== pendingComodoDeletionId);
+      pendingComodoDeletionId = null;
+      saveDatabase();
+      renderComodosGrid();
+      renderFavoritosGrid();
+      document.getElementById('deleteComodoDialog').close();
     }
 
     function toggleFavorito(id) {
